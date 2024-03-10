@@ -23,7 +23,7 @@
     <!--CSS-->
     <style>
         :root {
-            --color-primary: #4fbdce
+            --color-primary: #4fbdce;
             --color-secondary: #ffcb03;
             --color-tertiary: #ff585f;
             --color-primary-darker: #4fadce;
@@ -45,6 +45,7 @@
           html {
             font-size: 62.5%;
             box-sizing: border-box;
+            scroll-behavior: smooth;
           }
           
           body {
@@ -58,8 +59,6 @@
           /* GENERAL ELEMENTS */
           .section {
             padding: 15rem 3rem;
-            border-top: 1px solid #ddd;
-          
             transition: transform 1s, opacity 1s;
           }
           
@@ -116,6 +115,7 @@
             padding-bottom: 2px;
             cursor: pointer;
             transition: all 0.3s;
+            margin-right: auto;
           }
           
           p {
@@ -197,7 +197,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 30px;
           }
           
           .header__title {
@@ -209,8 +208,8 @@
             align-content: center;
             justify-content: center;
             margin: auto;
-            align-items: center;
-            justify-items: center;
+            align-items: start;
+            justify-items: start;
             transform: translateY(80px)
           }
           
@@ -226,7 +225,7 @@
           }
           
           .header__img {
-            width: 60rem;
+            width: 100%;
             grid-column: 2 / 3;
             grid-row: 1 / span 4;
             transform: translateX(10rem);
@@ -710,7 +709,7 @@
             <a class="nav__link" href="#section--3">Testimonials</a>
           </li>
           <li class="nav__item">
-            <a class="nav__link nav__link--btn btn--show-modal" href="#nav"
+            <a class="nav__link nav__link--btn btn--show-modal" href="http://127.0.0.1:8000/admin/auth/user/add/"
               >Open account</a
             >
           </li>
@@ -750,7 +749,7 @@
           alt="Computer"
           class="features__img lazy-img"
         />
-        <div data-aos="fade-right" class="features__feature">
+        <div class="features__feature">
           <div class="features__icon">
             <svg>
               <use xlink:href="img/icons.svg#icon-monitor"></use>
@@ -998,7 +997,7 @@
           class="footer__link twitter-link"
           target="_blank"
           href="https://github.com/asmirpljakic"
-          >Asmir Pljakic</a
+          >CodeGallantX</a
         >
       </p>
     </footer>

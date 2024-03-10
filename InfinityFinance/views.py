@@ -69,6 +69,7 @@ class RegisterView(generic.CreateView):
     success_url = reverse_lazy('login')
     template_name = 'registration/register.html'
 
+@login_required
 def account_details(request, account_id):
     account = get_object_or_404(Account, id=account_id)
     return render(request, 'bank/account_details.html', {'account': account})
