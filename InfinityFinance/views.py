@@ -19,7 +19,7 @@ def account(request):
     user = request.user
     account = user.account  # Assuming user has a one-to-one relationship with Account model
     transactions = Transaction.objects.filter(account=account)
-    return render(request, 'bank/account.html', {'account': account, 'transactions': transactions})
+    return render(request, 'InfinityFinance/account.html', {'account': account, 'transactions': transactions})
 
 def transfer(request):
     if request.method == 'POST':
@@ -42,7 +42,7 @@ def transfer(request):
             return redirect('account')
     else:
         form = TransferForm()
-    return render(request, 'bank/transfer.html', {'form': form})
+    return render(request, 'InfinityFinance/transfer.html', {'form': form})
     
 def deposit(request):
     if request.method == 'POST':
@@ -60,23 +60,33 @@ def deposit(request):
             return redirect('account')
     else:
         form = DepositForm()
-    return render(request, 'bank/deposit.html', {'form': form})
+    return render(request, 'InfinityFinance/deposit.html', {'form': form})
     
 def withdraw(request):
-    # Your logic for withdraw view
     if request.method == 'POST':
-        # Process withdrawal form submission
-        # Validate withdrawal details
-        # Deduct withdrawal amount from user's account
-        # Create transaction record for the withdrawal
-        return redirect('account')  # Redirect to account page after successful withdrawal
+        form = WithdrawForm(request.POST)
+        if form.is_valid():
+            # Process withdrawal
+            # Example logic:
+            account = request.user.account
+            amount = form.cleaned_data['amount']
+            # Check if user has sufficient balance
+            if account.balance >= amount:
+                # Deduct amount from user's account
+                account.balance -= amount
+                account.save()
+                # Create transaction record for the withdrawal
+                Transaction.objects.create(account=account, amount=-amount)
+                return redirect('account')
+            else:
+                # Insufficient balance
+                form.add_error('amount', 'Insufficient balance')
     else:
-        # Display withdrawal form
-        return render(request, 'bank/withdraw.html')
-    
+        form = WithdrawForm()
+    return render(request, 'InfinityFinance/withdraw.html', {'form': form})
 
 class CustomLoginView(LoginView):
-    template_name = 'bank/login.html'
+    template_name = 'InfinityFinance/login.html'
 
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('login')
@@ -89,4 +99,4 @@ class RegisterView(generic.CreateView):
 @login_required
 def account_details(request, account_id):
     account = get_object_or_404(Account, id=account_id)
-    return render(request, 'bank/account_details.html', {'account': account})
+    return render(request, 'InfinityFinance/account_details.html', {'account': account})
