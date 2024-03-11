@@ -22,17 +22,27 @@ def account(request):
     return render(request, 'bank/account.html', {'account': account, 'transactions': transactions})
 
 def transfer(request):
-    # Your logic for transfer view
     if request.method == 'POST':
-        # Process transfer form submission
-        # Validate transfer details
-        # Deduct transfer amount from sender's account
-        # Add transfer amount to recipient's account
-        # Create transaction records for both accounts
-        return redirect('account')  # Redirect to account page after successful transfer
+        form = TransferForm(request.POST)
+        if form.is_valid():
+            # Process transfer
+            # Example logic:
+            sender_account = request.user.account
+            recipient_account = form.cleaned_data['recipient_account']
+            amount = form.cleaned_data['amount']
+            # Deduct amount from sender's account
+            sender_account.balance -= amount
+            sender_account.save()
+            # Add amount to recipient's account
+            recipient_account.balance += amount
+            recipient_account.save()
+            # Create transaction records for both accounts
+            Transaction.objects.create(account=sender_account, amount=-amount)
+            Transaction.objects.create(account=recipient_account, amount=amount)
+            return redirect('account')
     else:
-        # Display transfer form
-        return render(request, 'bank/transfer.html')
+        form = TransferForm()
+    return render(request, 'bank/transfer.html', {'form': form})
     
 def deposit(request):
     # Your logic for deposit view
