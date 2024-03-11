@@ -20,6 +20,7 @@ from django.contrib.auth import views as auth_views
 from InfinityFinance import views as infinity_views  # Import the views from InfinityFinance app
 
 urlpatterns = [
+    path('admin/', admin.site.urls, name='admin'),
     path('', infinity_views.home, name='home'),
     path('account/', infinity_views.account, name='account'),
     path('transfer/', infinity_views.transfer, name='transfer'),
