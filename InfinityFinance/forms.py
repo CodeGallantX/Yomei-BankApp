@@ -1,7 +1,6 @@
 from django import forms
-from django.contrib.auth import get_user_model
-from django.contrib.auth.hashers import check_password
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class TransferForm(forms.Form):
     user_account = forms.IntegerField(label="From Account")
@@ -76,3 +75,13 @@ class DepositForm(forms.Form):
 class WithdrawForm(forms.Form):
     amount = forms.DecimalField(max_digits=10, decimal_places=2)
 
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(max_length=254, help_text='Required. Enter a valid email address.')
+    phone_number = forms.CharField(max_length=15, help_text='Required. Enter your phone number.')
+    first_name = forms.CharField(max_length=30, help_text='Required. Enter your first name.')
+    last_name = forms.CharField(max_length=30, help_text='Required. Enter your last name.')
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'phone_number', 'first_name', 'last_name', 'password1', 'password2']
+    #In this custom form (CustomUserCreationForm), I've added fields for email, phone number, first name, and last name, in addition to the existing username and password fields.

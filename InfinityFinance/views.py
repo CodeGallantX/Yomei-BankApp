@@ -1,14 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.forms import UserCreationForm
+from .forms import CustomUserCreationForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from .models import Account, Transaction
 from .forms import WithdrawForm, TransferForm, DepositForm
 from django.contrib import messages
-from .forms import UserAccountForm
 
 def home(request):
     return render(request, 'InfinityFinance/homepage.html')
@@ -94,7 +93,8 @@ class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('login')
 
 class RegisterView(CreateView):
-    form_class = UserCreationForm
+    form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'InfinityFinance/register.html'
+
 
