@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import make_password
 
 class TransferForm(forms.Form):
     user_account = forms.IntegerField(label="From Account")
@@ -74,12 +75,6 @@ class DepositForm(forms.Form):
 
 class WithdrawForm(forms.Form):
     amount = forms.DecimalField(max_digits=10, decimal_places=2)
-
-
-
-from django.contrib.auth import get_user_model
-from django.contrib.auth.hashers import check_password
-from django.contrib.auth.hashers import make_password
 
 class UserAccountForm(forms.ModelForm):
     # ... other fields ...
