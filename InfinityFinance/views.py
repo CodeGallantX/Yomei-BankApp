@@ -98,13 +98,3 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'InfinityFinance/register.html'
 
-def signup(request):
-    if request.method == 'POST':
-        form = UserAccountForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            messages.success(request, "User created successfully")
-            return redirect('login')
-    else:
-        form = UserAccountForm()
-    return render(request, 'signup.html', {'form': form})

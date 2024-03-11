@@ -76,29 +76,3 @@ class DepositForm(forms.Form):
 class WithdrawForm(forms.Form):
     amount = forms.DecimalField(max_digits=10, decimal_places=2)
 
-class UserAccountForm(forms.ModelForm):
-    # ... other fields ...
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        if user.password:
-            user.password = make_password(user.password)
-            user.save()
-        return user
-
-    def clean_password(self):
-        password = self.cleaned_data.get('password')
-        if not password:
-            raise forms.ValidationError("Password is required")
-        return password
-
-    def clean_confirm_password(self):
-        password = self.cleaned_data.get('password')
-        confirm_password = self.cleaned_data.get('confirm_password')
-        if password and confirm_password and password != confirm_password:
-            raise forms.ValidationError("Passwords do not match")
-        return confirm_password
-
-    def save_m2m(self):
-        # This is needed to save ManyToMany fields after the instance is saved
-        super().save_m2m()

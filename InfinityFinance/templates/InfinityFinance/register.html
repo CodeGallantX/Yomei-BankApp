@@ -1,17 +1,120 @@
-<div class="modal hidden">
-    <button class="btn--close-modal">&times;</button>
-    <h2 class="modal__header">
-      Open your bank account <br />
-      in just <span class="highlight">5 minutes</span>
-    </h2>
-    <form class="modal__form">
-      <label>First Name</label>
-      <input type="text" />
-      <label>Last Name</label>
-      <input type="text" />
-      <label>Email Address</label>
-      <input type="email" />
-      <button class="btn">Next step &rarr;</button>
-    </form>
+<!-- signup.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Account Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #000440;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-basis: 31%;
+      }
+
+      .container {
+          max-width: 600px;
+          margin: 50px auto;
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          padding: 30px;
+          box-sizing: border-box;
+      }
+
+      h1 {
+          text-align: center;
+          margin-bottom: 30px;
+          color: #333;
+      }
+
+      form {
+          margin-top: 20px;
+      }
+
+      .form-group {
+          margin-bottom: 20px;
+      }
+
+      .form-group label {
+          display: block;
+          font-weight: bold;
+          margin-bottom: 5px;
+          color: #555;
+      }
+
+      .form-group input {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-sizing: border-box;
+      }
+
+      .form-group.error input {
+          border-color: #ff6347;
+      }
+
+      .error-message {
+          color: #ff6347;
+          margin-top: 5px;
+      }
+
+      .form-group.error .error-message {
+          display: block;
+      }
+
+      .btn {
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+
+      .btn:hover {
+          background-color: #0056b3;
+      }
+  </style>
+</head>
+<body>
+
+  <div class="image">
+    <img src="https://ik.imagekit.io/mshcgnjju/bank-lock.svg?updatedAt=1710014965247" alt="">
   </div>
-  <div class="overlay hidden"></div>
+<div class="container">
+    <h1>User Account Form</h1>
+    <form method="post" id="user-account-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_username">Username</label>
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            <label for="id_email">Email</label>
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            <label for="id_password">Password</label>
+            {{ form.password }}
+            <span class="error-message">{{ form.errors.password }}</span>
+        </div>
+        <div class="form-group">
+            <label for="id_confirm_password">Confirm Password</label>
+            {{ form.confirm_password }}
+            <span class="error-message">{{ form.errors.confirm_password }}</span>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>
