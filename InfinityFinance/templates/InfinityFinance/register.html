@@ -80,6 +80,7 @@
           padding: 10px 20px;
           border-radius: 5px;
           cursor: pointer;
+          font-family: Poppins, sans-serif;
       }
 
       .btn:hover {
@@ -114,8 +115,10 @@
           <input type="password" name="password2" required id="id_confirm_password">
           <span class="error-message">{{ form.errors.password2 }}</span>
       </div>
-      
+      <div class="btn-con">
         <button type="submit" class="btn">Submit</button>
+        <a href="/"><button class="btn">Cancel</button></a>
+      </div>
     </form>
 </div>
 
