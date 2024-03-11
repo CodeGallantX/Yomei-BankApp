@@ -1,5 +1,3 @@
-<!-- signup.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,32 +15,31 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          flex-basis: 31%;
+          height: 100vh; /* Added for full height */
       }
 
       .container {
-          max-width: 600px;
-          margin: 50px auto;
+          width: 40%; /* Adjusted width for responsiveness */
           background-color: #fff;
           border-radius: 8px;
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
           padding: 30px;
           box-sizing: border-box;
+          text-align: center; /* Center aligning */
       }
 
       h1 {
-          text-align: center;
           margin-bottom: 30px;
           color: #333;
       }
 
       form {
           margin-top: 20px;
-          padding: 20px 3r;
       }
 
       .form-group {
           margin-bottom: 20px;
+          text-align: left; /* Adjusted text alignment */
       }
 
       .form-group label {
@@ -53,7 +50,7 @@
       }
 
       .form-group input {
-          width: 100%;
+          width: calc(100% - 20px); /* Adjusted input width */
           padding: 10px;
           border: 1px solid #ccc;
           border-radius: 5px;
@@ -74,6 +71,12 @@
           display: block;
       }
 
+      .btn-con {
+          display: flex;
+          justify-content: space-between; /* Adjusted button alignment */
+          margin-top: 20px;
+      }
+
       .btn {
           background-color: #007bff;
           color: #fff;
@@ -87,6 +90,15 @@
       .btn:hover {
           background-color: #0056b3;
       }
+
+      .image {
+          text-align: center;
+          margin-bottom: 20px; /* Added margin for spacing */
+      }
+
+      .image img {
+          width: 100%; /* Increased image size */
+      }
   </style>
 </head>
 <body>
@@ -95,7 +107,7 @@
     <img src="https://ik.imagekit.io/mshcgnjju/bank-lock.svg?updatedAt=1710014965247" alt="">
   </div>
 <div class="container">
-    <h1>Create  Account</h1>
+    <h1>Create Account</h1>
     <form method="post" id="user-account-form">
         {% csrf_token %}
         <div class="form-group">
