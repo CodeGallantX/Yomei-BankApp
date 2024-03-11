@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.conf import settings
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import CustomUserCreationForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
-from .models import Account, Transaction
+from .models import Account, Transaction, AccountDetails
 from .forms import WithdrawForm, TransferForm, DepositForm
 from django.contrib import messages
 
@@ -97,4 +97,21 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'InfinityFinance/register.html'
 
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Successfully logged in!')
+            return redirect('account_details')  # Redirect to account details page
+        else:
+            messages.error(request, 'Invalid username or password')
+    return render(request, 'login.html')
 
+
+def account_details(request):
+    user = request.user
+    account = AccountDetails.objects.get(user=user)
+    return render(request, 'account_details.html', {'account': account})
