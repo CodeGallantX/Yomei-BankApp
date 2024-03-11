@@ -6,8 +6,9 @@ from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from .models import Account, Transaction
-from django.contrib.auth.decorators import login_required
 from .forms import WithdrawForm, TransferForm, DepositForm
+from django.contrib import messages
+from .forms import UserAccountForm
 
 def home(request):
     return render(request, 'InfinityFinance/homepage.html')
@@ -97,7 +98,13 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'InfinityFinance/register.html'
 
-@login_required
-def account_details(request, account_id):
-    account = get_object_or_404(Account, id=account_id)
-    return render(request, 'InfinityFinance/account_details.html', {'account': account})
+def signup(request):
+    if request.method == 'POST':
+        form = UserAccountForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, "User created successfully")
+            return redirect('login')
+    else:
+        form = UserAccountForm()
+    return render(request, 'signup.html', {'form': form})
