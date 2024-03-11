@@ -9,12 +9,10 @@
     <style>
       body {
           font-family: Poppins, sans-serif;
-          background-color: #000430;
+          justify-content: center;
+          background-color: #fff /*#000404*/;
           margin: 0;
           padding: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
           height: 100vh; /* Added for full height */
       }
 
@@ -61,6 +59,37 @@
         <!-- Add more fields as needed -->
     </div>
 </div>
+
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Head content goes here -->
+</head>
+<body>
+    <h1>Welcome, {{ request.user.username }}!</h1>
+    <h2>Wallet Balance: ${{ wallet.balance }}</h2>
+    <h3>Recent Transactions:</h3>
+    <ul>
+        {% for transaction in transactions %}
+            <li>{{ transaction.description }} - ${{ transaction.amount }}</li>
+        {% endfor %}
+    </ul>
+    <h3>Unpaid Bills:</h3>
+    <ul>
+        {% for bill in bills %}
+            <li>{{ bill.category }} - ${{ bill.amount }}</li>
+        {% endfor %}
+    </ul>
+    <h3>Recent Airtime Purchases:</h3>
+    <ul>
+        {% for airtime_purchase in airtime_purchases %}
+            <li>Phone: {{ airtime_purchase.phone_number }} - ${{ airtime_purchase.amount }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
 
 </body>
 </html>

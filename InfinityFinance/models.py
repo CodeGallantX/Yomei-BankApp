@@ -14,11 +14,31 @@ class Transaction(models.Model):
 
 class AccountDetails(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # Add fields for account details, such as first name, last name, email, etc.
-    # Example:
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
 
     def __str__(self):
         return self.user.username
+    
+
+from django.contrib.auth.models import User
+
+class Wallet(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+
+class Bill(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    category = models.CharField(max_length=100)
+    is_paid = models.BooleanField(default=False)
+
+class AirtimePurchase(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    phone_number = models.CharField(max_length=15)
+    is_successful = models.BooleanField(default=False)
+    
+

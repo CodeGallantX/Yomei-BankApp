@@ -5,9 +5,10 @@ from .forms import CustomUserCreationForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
-from .models import Account, Transaction, AccountDetails
+from .models import Account, Transaction, AccountDetails, Wallet, Transaction, Bill, AirtimePurchase
 from .forms import WithdrawForm, TransferForm, DepositForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     return render(request, 'InfinityFinance/homepage.html')
@@ -96,6 +97,10 @@ class RegisterView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'InfinityFinance/register.html'
+    def form_valid(self, form):
+        # Save the user's name to the database
+        form.instance.name = form.cleaned_data['name']
+        return super().form_valid(form)
 
 def login_view(request):
     if request.method == 'POST':
@@ -111,7 +116,29 @@ def login_view(request):
     return render(request, 'login.html')
 
 
-def account_details(request):
+@login_required
+def dashboard(request):
     user = request.user
-    account = AccountDetails.objects.get(user=user)
-    return render(request, 'account_details.html', {'account': account})
+    wallet = Wallet.objects.get(user=user)
+    transactions = Transaction.objects.filter(wallet=wallet)
+    bills = Bill.objects.filter(user=user)
+    airtime_purchases = AirtimePurchase.objects.filter(user=user)
+    context = {
+        'wallet': wallet,
+        'transactions': transactions,
+        'bills': bills,
+        'airtime_purchases': airtime_purchases
+    }
+    return render(request, 'dashboard.html', context)
+
+def transfer_money(request):
+    # Implement money transfer logic here
+    pass
+
+def pay_bill(request):
+    # Implement bill payment logic here
+    pass
+
+def buy_airtime(request):
+    # Implement airtime purchase logic here
+    pass

@@ -29,6 +29,11 @@ urlpatterns = [
     path('login/', infinity_views.CustomLoginView.as_view(), name='login'),
     path('logout/', infinity_views.CustomLogoutView.as_view(), name='logout'),
     path('register/', infinity_views.RegisterView.as_view(), name='register'),
+
+    path('dashboard/', infinity_views.dashboard, name='dashboard'),
+    path('transfer/', infinity_views.transfer, name='transfer'),
+    path('withdraw/', infinity_views.withdraw, name='withdraw'),
+    path('buy-airtime/', infinity_views.buy_airtime, name='buy_airtime'),
 ]
 
 
