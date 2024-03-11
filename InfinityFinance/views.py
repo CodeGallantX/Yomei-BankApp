@@ -71,7 +71,6 @@ class RegisterView(generic.CreateView):
     template_name = 'registration/register.html'
 
 @login_required
-def account_details(request):
-    account = Account.objects.get(user=request.user)
-    transactions = account.transaction_set.all()
-    return render(request, 'accounts/account_details.html', {'account': account, 'transactions': transactions})
+def account_details(request, account_id):
+    account = get_object_or_404(Account, id=account_id)
+    return render(request, 'bank/account_details.html', {'account': account})

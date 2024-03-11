@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account Details</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Account Details</h1>
+        <p>User: {{ account.user.username }}</p>
+        <p>Balance: ${{ account.balance }}</p>
+        <h2>Transaction History</h2>
+        <ul>
+            {% for transaction in transactions %}
+                <li>{{ transaction.timestamp }} - {{ transaction.amount }} ({{ transaction.transaction_type }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
