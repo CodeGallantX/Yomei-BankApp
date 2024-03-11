@@ -95,7 +95,7 @@ class CustomLogoutView(LogoutView):
 class RegisterView(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
-    template_name = 'registration/register.html'
+    template_name = 'InfinityFinance/register.html'
 
 @login_required
 def account_details(request, account_id):
