@@ -45,16 +45,22 @@ def transfer(request):
     return render(request, 'bank/transfer.html', {'form': form})
     
 def deposit(request):
-    # Your logic for deposit view
     if request.method == 'POST':
-        # Process deposit form submission
-        # Validate deposit details
-        # Add deposit amount to user's account
-        # Create transaction record for the deposit
-        return redirect('account')  # Redirect to account page after successful deposit
+        form = DepositForm(request.POST)
+        if form.is_valid():
+            # Process deposit
+            # Example logic:
+            account = request.user.account
+            amount = form.cleaned_data['amount']
+            # Add amount to user's account
+            account.balance += amount
+            account.save()
+            # Create transaction record for the deposit
+            Transaction.objects.create(account=account, amount=amount)
+            return redirect('account')
     else:
-        # Display deposit form
-        return render(request, 'bank/deposit.html')
+        form = DepositForm()
+    return render(request, 'bank/deposit.html', {'form': form})
     
 def withdraw(request):
     # Your logic for withdraw view
