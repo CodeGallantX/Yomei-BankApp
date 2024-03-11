@@ -19,7 +19,7 @@ def account(request):
     user = request.user
     account = user.account  # Assuming user has a one-to-one relationship with Account model
     transactions = Transaction.objects.filter(account=account)
-    return render(request, 'bank/account.html')
+    return render(request, 'bank/account.html', {'account': account, 'transactions': transactions})
 
 def transfer(request):
     # Your logic for transfer view
