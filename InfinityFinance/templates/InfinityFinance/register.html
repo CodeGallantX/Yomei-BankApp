@@ -7,9 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Account Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <style>
       body {
-          font-family: Arial, sans-serif;
+          font-family: Poppins, sans-serif;
           background-color: #000440;
           margin: 0;
           padding: 0;
@@ -56,6 +57,7 @@
           border: 1px solid #ccc;
           border-radius: 5px;
           box-sizing: border-box;
+          font-family: Poppins, sans-serif;
       }
 
       .form-group.error input {
@@ -91,7 +93,7 @@
     <img src="https://ik.imagekit.io/mshcgnjju/bank-lock.svg?updatedAt=1710014965247" alt="">
   </div>
 <div class="container">
-    <h1>User Account Form</h1>
+    <h1>Create  Account</h1>
     <form method="post" id="user-account-form">
         {% csrf_token %}
         <div class="form-group">
@@ -103,15 +105,16 @@
             {{ form.email }}
         </div>
         <div class="form-group">
-            <label for="id_password">Password</label>
-            {{ form.password }}
-            <span class="error-message">{{ form.errors.password }}</span>
-        </div>
-        <div class="form-group">
-            <label for="id_confirm_password">Confirm Password</label>
-            {{ form.confirm_password }}
-            <span class="error-message">{{ form.errors.confirm_password }}</span>
-        </div>
+          <label for="id_password">Password</label>
+          <input type="password" name="password1" required id="id_password">
+          <span class="error-message">{{ form.errors.password1 }}</span>
+      </div>
+      <div class="form-group">
+          <label for="id_confirm_password">Confirm Password</label>
+          <input type="password" name="password2" required id="id_confirm_password">
+          <span class="error-message">{{ form.errors.password2 }}</span>
+      </div>
+      
         <button type="submit" class="btn">Submit</button>
     </form>
 </div>
