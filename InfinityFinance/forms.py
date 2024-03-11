@@ -80,8 +80,9 @@ class CustomUserCreationForm(UserCreationForm):
     phone_number = forms.CharField(max_length=15, help_text='Required. Enter your phone number.')
     first_name = forms.CharField(max_length=30, help_text='Required. Enter your first name.')
     last_name = forms.CharField(max_length=30, help_text='Required. Enter your last name.')
+    password1 = forms.CharField(widget=forms.PasswordInput, help_text='Required. Enter a password.')
+    password2 = forms.CharField(widget=forms.PasswordInput, help_text='Required. Enter the same password again.')
 
     class Meta:
         model = User
         fields = ['username', 'email', 'phone_number', 'first_name', 'last_name', 'password1', 'password2']
-    #In this custom form (CustomUserCreationForm), I've added fields for email, phone number, first name, and last name, in addition to the existing username and password fields.
