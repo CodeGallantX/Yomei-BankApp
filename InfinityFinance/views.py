@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse
 from .models import Account, Transaction
 from django.contrib.auth.decorators import login_required
+from .forms import WithdrawForm, TransferForm, DepositForm
 
 def home(request):
     return render(request, 'InfinityFinance/homepage.html')
