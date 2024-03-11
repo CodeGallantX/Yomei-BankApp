@@ -1,18 +1,18 @@
-<!-- deposit.html -->
+<!-- account_details.html -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deposit</title>
+    <title>Account Details</title>
 </head>
 <body>
-    <h1>Deposit Funds</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Deposit</button>
-    </form>
+    <h1>Account Details</h1>
+    <p>Username: {{ account.user.username }}</p>
+    <p>First Name: {{ account.first_name }}</p>
+    <p>Last Name: {{ account.last_name }}</p>
+    <p>Email: {{ account.email }}</p>
+    <!-- Add more fields as needed -->
 </body>
 </html>

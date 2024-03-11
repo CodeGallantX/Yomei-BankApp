@@ -18,9 +18,53 @@
 
     <!-- JavaScript -->
     <script>
-      AOS.init();
+      document.addEventListener('DOMContentLoaded', function () {
+        AOS.init();
+      });
     </script>
+    
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const slides = document.querySelectorAll(".slide");
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+      
+        const showSlide = (slideIndex) => {
+          slides.forEach((slide) => {
+            slide.style.display = "none";
+          });
+          slides[slideIndex].style.display = "block";
+        };
+      
+        const nextSlide = () => {
+          currentSlide = (currentSlide + 1) % totalSlides;
+          showSlide(currentSlide);
+        };
+      
+        const prevSlide = () => {
+          currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+          showSlide(currentSlide);
+        };
+      
+        const sliderBtnLeft = document.querySelector(".slider__btn--left");
+        const sliderBtnRight = document.querySelector(".slider__btn--right");
+      
+        sliderBtnLeft.addEventListener("click", prevSlide);
+        sliderBtnRight.addEventListener("click", nextSlide);
+      
+        // Optional: Add autoplay
+        // const interval = setInterval(nextSlide, 5000);
+      
+        // Stop autoplay on button click
+        // sliderBtnLeft.addEventListener("click", () => clearInterval(interval));
+        // sliderBtnRight.addEventListener("click", () => clearInterval(interval));
+      });
+      
+    </script>
+    
+
     <!--CSS-->
     <style>
         :root {

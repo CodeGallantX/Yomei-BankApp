@@ -1,21 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Details</title>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <style>
+      body {
+          font-family: Poppins, sans-serif;
+          background-color: #000430;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100vh; /* Added for full height */
+      }
+
+      .container {
+          width: 40%; /* Adjusted width for responsiveness */
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          padding: 30px;
+          box-sizing: border-box;
+          text-align: center; /* Center aligning */
+      }
+
+      h1 {
+          margin-bottom: 30px;
+          color: #333;
+      }
+
+      .account-details {
+          text-align: left; /* Adjusted text alignment */
+          margin-bottom: 20px; /* Added margin for spacing */
+      }
+
+      .account-details p {
+          margin-bottom: 10px; /* Added margin for spacing */
+      }
+
+      .image {
+          text-align: center;
+          margin-bottom: 20px; /* Added margin for spacing */
+      }
+
+      .image img {
+          width: 35rem; /* Increased image size */
+      }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Account Details</h1>
-        <p>User: {{ account.user.username }}</p>
-        <p>Balance: ${{ account.balance }}</p>
-        <h2>Transaction History</h2>
-        <ul>
-            {% for transaction in transactions %}
-                <li>{{ transaction.timestamp }} - {{ transaction.amount }} ({{ transaction.transaction_type }})</li>
-            {% endfor %}
-        </ul>
+<div class="container">
+    <h1>Welcome, {{account.first_name}}</h1>
+    <div class="account-details">
+        <p><strong>Account Number: </strong>{{}}</p>
+        <p><strong>Balance: </strong>{{}}</p>
+        <!-- Add more fields as needed -->
     </div>
+</div>
+
 </body>
 </html>
