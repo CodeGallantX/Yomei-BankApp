@@ -3,93 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Details</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <style>
-      body {
-          font-family: Poppins, sans-serif;
-          justify-content: center;
-          background-color: #fff /*#000404*/;
-          margin: 0;
-          padding: 0;
-          height: 100vh; /* Added for full height */
-      }
+        body {
+            font-family: Poppins, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
 
-      .container {
-          width: 40%; /* Adjusted width for responsiveness */
-          background-color: #fff;
-          border-radius: 8px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-          padding: 30px;
-          box-sizing: border-box;
-          text-align: center; /* Center aligning */
-      }
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-      h1 {
-          margin-bottom: 30px;
-          color: #333;
-      }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-      .account-details {
-          text-align: left; /* Adjusted text alignment */
-          margin-bottom: 20px; /* Added margin for spacing */
-      }
+        .dashboard-header h1 {
+            color: #333;
+            font-size: 24px;
+            margin: 0;
+        }
 
-      .account-details p {
-          margin-bottom: 10px; /* Added margin for spacing */
-      }
+        .balance-info {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
 
-      .image {
-          text-align: center;
-          margin-bottom: 20px; /* Added margin for spacing */
-      }
+        .balance-info h2 {
+            color: #333;
+            margin: 0;
+        }
 
-      .image img {
-          width: 35rem; /* Increased image size */
-      }
-  </style>
+        .transaction-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .transaction-list li {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .transaction-list li:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-list .transaction-details {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .transaction-list .transaction-amount {
+            color: green;
+            font-weight: bold;
+        }
+
+        .transaction-amount .loss {
+            color: red;
+        }
+
+        .dashboard-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .dashboard-actions a {
+            display: block;
+            padding: 20px;
+            text-align: center;
+            background-color: #03a9f4;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .dashboard-actions a:hover {
+            background-color: #0288d1;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <h1>Welcome, {{account.first_name}}</h1>
-    <div class="account-details">
-        <p><strong>Account Number: </strong>{{}}</p>
-        <p><strong>Balance: </strong>{{}}</p>
-        <!-- Add more fields as needed -->
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Welcome, {{ userprofile.full_name }}</h1>
+            <div class="balance-info">
+                <h2>Account Balance: $500.00</h2>
+            </div>
+        </div>
+
+        <h2>Latest Transactions</h2>
+        <ul class="transaction-list">
+            <li>
+                <div class="transaction-details">
+                    <span>Payment to ABC Company</span>
+                    <span>15 Mar 2024</span>
+                </div>
+                <span class="transaction-amount loss">-$50.00</span>
+            </li>
+            <li>
+                <div class="transaction-details">
+                    <span>Deposit from XYZ Bank</span>
+                    <span>14 Mar 2024</span>
+                </div>
+                <span class="transaction-amount">+$100.00</span>
+            </li>
+            <!-- Add more transactions as needed -->
+        </ul>
+
+        <h2>Operations</h2>
+        <div class="dashboard-actions">
+            <a href="#">Pay Bills</a>
+            <a href="#">Buy Airtime</a>
+            <a href="#">Purchase Data</a>
+            <a href="/transfer">Transfer Money</a>
+            <a href="/withdraw">Withdraw Funds</a>
+            <a href="#">Play Games</a>
+            <!-- Add more actions as needed -->
+        </div>
     </div>
-</div>
-
-<!-- dashboard.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Head content goes here -->
-</head>
-<body>
-    <h1>Welcome, {{ request.user.username }}!</h1>
-    <h2>Wallet Balance: ${{ wallet.balance }}</h2>
-    <h3>Recent Transactions:</h3>
-    <ul>
-        {% for transaction in transactions %}
-            <li>{{ transaction.description }} - ${{ transaction.amount }}</li>
-        {% endfor %}
-    </ul>
-    <h3>Unpaid Bills:</h3>
-    <ul>
-        {% for bill in bills %}
-            <li>{{ bill.category }} - ${{ bill.amount }}</li>
-        {% endfor %}
-    </ul>
-    <h3>Recent Airtime Purchases:</h3>
-    <ul>
-        {% for airtime_purchase in airtime_purchases %}
-            <li>Phone: {{ airtime_purchase.phone_number }} - ${{ airtime_purchase.amount }}</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
-
-
 </body>
 </html>

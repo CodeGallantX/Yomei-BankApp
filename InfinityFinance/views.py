@@ -5,7 +5,7 @@ from .forms import CustomUserCreationForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
-from .models import Account, Transaction, AccountDetails, Wallet, Transaction, Bill, AirtimePurchase
+from .models import Account, Transaction, UserProfile, Wallet, Transaction, Bill, AirtimePurchase
 from .forms import WithdrawForm, TransferForm, DepositForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -24,35 +24,45 @@ def home(request):
 def error_404(request, exception):
     return render(request, 'InfinityFinance/404.html', status=404)
 
-def account(request):
-    # Your logic for account view
-    user = request.user
-    account = user.account  # Assuming user has a one-to-one relationship with Account model
-    transactions = Transaction.objects.filter(account=account)
-    return render(request, 'InfinityFinance/account.html', {'account': account, 'transactions': transactions})
+
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import TransferForm
+from .models import Wallet, Transaction
 
 def transfer(request):
     if request.method == 'POST':
         form = TransferForm(request.POST)
         if form.is_valid():
-            # Process transfer
-            # Example logic:
-            sender_account = request.user.account
-            recipient_account = form.cleaned_data['recipient_account']
+            recipient = form.cleaned_data['recipient']
             amount = form.cleaned_data['amount']
-            # Deduct amount from sender's account
-            sender_account.balance -= amount
-            sender_account.save()
-            # Add amount to recipient's account
-            recipient_account.balance += amount
-            recipient_account.save()
-            # Create transaction records for both accounts
-            Transaction.objects.create(account=sender_account, amount=-amount)
-            Transaction.objects.create(account=recipient_account, amount=amount)
-            return redirect('account')
+            sender = request.user
+
+            # Check if sender has enough balance
+            sender_wallet = Wallet.objects.get(user=sender)
+            if sender_wallet.balance >= amount:
+                # Deduct amount from sender's wallet
+                sender_wallet.balance -= amount
+                sender_wallet.save()
+
+                # Add amount to recipient's wallet
+                recipient_wallet = Wallet.objects.get(user=recipient)
+                recipient_wallet.balance += amount
+                recipient_wallet.save()
+
+                # Record the transaction
+                Transaction.objects.create(sender=sender, recipient=recipient, amount=amount)
+
+                messages.success(request, 'Transfer successful!')
+                return redirect('transfer')
+            else:
+                messages.error(request, 'Insufficient balance.')
     else:
         form = TransferForm()
-    return render(request, 'InfinityFinance/transfer.html', {'form': form})
+
+    return render(request, 'transfer.html', {'form': form})
+
     
 def deposit(request):
     if request.method == 'POST':
@@ -105,10 +115,12 @@ class RegisterView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'InfinityFinance/register.html'
+
     def form_valid(self, form):
         # Save the user's name to the database
         form.instance.name = form.cleaned_data['name']
         return super().form_valid(form)
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -118,7 +130,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'Successfully logged in!')
-            return redirect('account_details')  # Redirect to account details page
+            return redirect('dashboard')  # Redirect to account details page
         else:
             messages.error(request, 'Invalid username or password')
     return render(request, 'login.html')
@@ -137,11 +149,11 @@ def dashboard(request):
         'bills': bills,
         'airtime_purchases': airtime_purchases
     }
-    return render(request, 'dashboard.html', context)
+    return render(request, 'InfinityFinance/dashboard.html', context)
 
-def transfer_money(request):
+def transfer(request):
     # Implement money transfer logic here
-    pass
+    return render(request, 'InfinityFinance/transfer.html')
 
 def pay_bill(request):
     # Implement bill payment logic here

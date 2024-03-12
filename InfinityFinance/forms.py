@@ -86,3 +86,11 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'phone_number', 'first_name', 'last_name', 'password1', 'password2']
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get('phone_number')
+        # Add custom validation logic here, such as checking for a specific format or length
+        if not phone_number.isdigit():
+            raise forms.ValidationError('Phone number must contain only digits.')
+        return phone_number
+
