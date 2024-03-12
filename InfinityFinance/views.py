@@ -151,6 +151,7 @@ def contact(request):
     return render(request, 'InfinityFinance/contact.html')
 
 
+
 def send_email(request):
     if request.method == 'POST':
         name = request.POST.get('name')
