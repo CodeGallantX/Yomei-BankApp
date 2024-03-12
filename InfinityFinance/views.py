@@ -168,6 +168,6 @@ def send_email(request):
         )
         
         # Redirect the user to a thank you page or the home page
-        return HttpResponseRedirect(reverse('thank_you/'))
+        return HttpResponseRedirect(reverse('thank_you'))
     else:
         return HttpResponseRedirect(reverse(''))  # Redirect if not a POST request
