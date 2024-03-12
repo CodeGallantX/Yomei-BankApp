@@ -368,6 +368,7 @@ submitBtn.addEventListener('click', validate);
       <p>For banking inquiries or account assistance, reach out to our team for personalized support tailored to your needs.</p>
       
       <form id="contact-form" method="post">
+        {% csrf_token %}
         <label for="name">Full name</label>
     <input type="text" id="name" name="name" placeholder="Your Full Name" required>
         <label for="email">Email Address</label>
