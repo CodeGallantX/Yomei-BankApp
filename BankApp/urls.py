@@ -33,7 +33,7 @@ urlpatterns = [
     path('dashboard/', infinity_views.dashboard, name='dashboard'),
     path('contact/', infinity_views.contact, name='contact'),
     path('send-email/', infinity_views.send_email, name='send-email'),
-    path('thank_you/', infinity_views.thank_you, name='thank_you'),
+    path('thank-you/', infinity_views.thank_you, name='thank_you'),
     
     path('buy-airtime/', infinity_views.buy_airtime, name='buy_airtime'),
 ]
