@@ -152,6 +152,9 @@ def buy_airtime(request):
 def contact(request):
     return render(request, 'InfinityFinance/contact.html')
 
+def thank_you(request):
+    return render(request, 'InfinityFinance/thank_you.html')
+
 
 def send_email(request):
     if request.method == 'POST':
@@ -185,3 +188,4 @@ def send_email(request):
             
     else:
         return HttpResponseRedirect(reverse('contact'))  # Redirect if not a POST request
+
