@@ -9,9 +9,9 @@
 
   <style>
     body {
-        background-color: #9f9da7;
+        background-color: #00040f;
         font-size: 1.6rem;
-        font-family: "Open Sans", sans-serif;
+        font-family: "Poppins", sans-serif;
         color: #2b3e51;
       }
       
@@ -50,8 +50,8 @@
         margin: 30px auto;
         text-align: center;
         padding: 20px 0 0 0;
-        border-radius: 4px;
-        box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
+        border-radius: 20px;
+        box-shadow: 0px 3px 500px 1px #4fbdce;
       }
       
       #login-form {
@@ -65,7 +65,8 @@
         outline: none;
         height: 60px;
         line-height: 60px;
-        border-radius: 4px;
+        border-radius: 16px;
+        font-family: "Poppins", sans-serif;;
       }
       
       input[type="text"],
@@ -96,11 +97,11 @@
       input[type="text"]:valid ~ .validation,
       input[type="email"]:valid ~ .validation {
         display: block;
-        border-color: #0C0;
+        border-color: #4fbdce;
       }
       input[type="text"]:valid ~ .validation span,
       input[type="email"]:valid ~ .validation span {
-        background: #0C0;
+        background: #4fbdce;
         position: absolute;
         border-radius: 6px;
       }
@@ -161,7 +162,7 @@
         font-size: 14px;
         width: 100%;
         padding: 10px 0;
-        border-radius: 0 0 4px 4px;
+        border-radius: 0 0 20px 20px;
       }
   </style>
 </head>
@@ -181,7 +182,7 @@
     </p>
   </form>
   <div id="create-account-wrap">
-    <p>Not a member? <a href="#">Create Account</a><p>
+    <p>Not a member? <a href="register/">Create Account</a><p>
   </div><!--create-account-wrap-->
 </div><!--login-form-wrap-->
 <!-- partial -->
