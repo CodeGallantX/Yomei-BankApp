@@ -29,7 +29,6 @@ def error_404(request, exception):
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import TransferForm
-from .models import Wallet, Transaction
 
 def transfer(request):
     if request.method == 'POST':
