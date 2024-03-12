@@ -31,8 +31,9 @@ urlpatterns = [
     path('register/', infinity_views.RegisterView.as_view(), name='register'),
 
     path('dashboard/', infinity_views.dashboard, name='dashboard'),
-    path('transfer/', infinity_views.transfer, name='transfer'),
-    path('withdraw/', infinity_views.withdraw, name='withdraw'),
+    path('contact/', infinity_views.contact, name='contact'),
+    path('send-message/', infinity_views.send_email, name='send-message'),
+    
     path('buy-airtime/', infinity_views.buy_airtime, name='buy_airtime'),
 ]
 

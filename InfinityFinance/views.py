@@ -9,6 +9,10 @@ from .models import Account, Transaction, AccountDetails, Wallet, Transaction, B
 from .forms import WithdrawForm, TransferForm, DepositForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.conf import settings
 
 def home(request):
     return render(request, 'InfinityFinance/homepage.html')
@@ -142,3 +146,26 @@ def pay_bill(request):
 def buy_airtime(request):
     # Implement airtime purchase logic here
     pass
+
+def contact(request):
+    return render(request, 'InfinityFinance/contact.html')
+
+def send_email(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        
+        # Send email to admin
+        send_mail(
+            f'New message from {name}',
+            f'Email: {email}\n\nMessage: {message}',
+            settings.DEFAULT_FROM_EMAIL,
+            [settings.ADMIN_EMAIL],  # Replace with your admin's email address
+            fail_silently=False,
+        )
+        
+        # Redirect the user to a thank you page or the home page
+        return HttpResponseRedirect(reverse('thank_you'))
+    else:
+        return HttpResponseRedirect(reverse(''))  # Redirect if not a POST request
