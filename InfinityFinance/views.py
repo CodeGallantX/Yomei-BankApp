@@ -15,6 +15,7 @@ from django.urls import reverse
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
+import random
 
 
 def home(request):
@@ -156,7 +157,7 @@ def contact(request):
 def thank_you(request):
     return render(request, 'InfinityFinance/thank_you.html')
 
-def send_email(request):
+'''def send_email(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -174,4 +175,31 @@ def send_email(request):
         # Redirect the user to a thank you page or the home page
         return HttpResponseRedirect(reverse('thank_you'))
     else:
-        return HttpResponseRedirect(reverse('contact'))  # Redirect if not a POST request
+        return HttpResponseRedirect(reverse('contact'))  # Redirect if not a POST request'''
+
+
+def register_user(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            # Generate random 6-digit code
+            verification_code = ''.join(random.choices('0123456789', k=6))
+            email = form.cleaned_data['email']
+            
+            # Save verification code and email to database
+            # This step depends on your specific user model and database structure
+
+            # Send email with verification code
+            send_mail(
+                'Verification Code for Your Account',
+                f'Your verification code is: {verification_code}',
+                'your@example.com',
+                [email],
+                fail_silently=False,
+            )
+            
+            # Redirect user to enter verification code
+            return redirect('enter_verification_code')  # Create a new view for this step
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'register.html', {'form': form})
