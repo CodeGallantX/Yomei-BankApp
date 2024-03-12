@@ -5,7 +5,7 @@ from .forms import CustomUserCreationForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
-from .models import Account, Transaction, UserProfile, Wallet, Transaction, Bill, AirtimePurchase
+from .models import Transaction, UserProfile, Wallet, Transaction, Bill, AirtimePurchase
 from .forms import WithdrawForm, TransferForm, DepositForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -111,16 +111,16 @@ class CustomLoginView(LoginView):
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('login')
 
-class RegisterView(CreateView):
-    form_class = CustomUserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'InfinityFinance/register.html'
-
-    def form_valid(self, form):
-        # Save the user's name to the database
-        form.instance.name = form.cleaned_data['name']
-        return super().form_valid(form)
-
+def register_view(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect to login page or dashboard after successful registration
+            return redirect('login')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'InfinityFinance/register.html', {'form': form})
 
 def login_view(request):
     if request.method == 'POST':
