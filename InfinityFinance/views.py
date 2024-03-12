@@ -14,6 +14,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 
 
 def home(request):
@@ -155,37 +156,22 @@ def contact(request):
 def thank_you(request):
     return render(request, 'InfinityFinance/thank_you.html')
 
-
 def send_email(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         message = request.POST.get('message')
         
-        try:
-            # Validate inputs
-            validate_email(email)
-            if len(name) < 3:
-                raise ValidationError("Name should be at least 3 characters long.")
-            if len(message) < 15:
-                raise ValidationError("Message should be at least 15 characters long.")
-            
-            # Send email to admin
-            send_mail(
-                f'New message from {name}',
-                f'Email: {email}\n\nMessage: {message}',
-                settings.DEFAULT_FROM_EMAIL,
-                [settings.ADMIN_EMAIL],  # Replace with your admin's email address
-                fail_silently=False,
-            )
-            
-            # Redirect the user to a thank you page or the home page
-            return HttpResponseRedirect(reverse('thank_you'))
+        # Send email to admin
+        send_mail(
+            f'New message from {name}',
+            f'Name: {name}\nEmail: {email}\nMessage: {message}',
+            settings.DEFAULT_FROM_EMAIL,
+            [settings.ADMIN_EMAIL],  # Replace with your admin's email address
+            fail_silently=False,
+        )
         
-        except ValidationError as e:
-            # Handle validation errors
-            return render(request, 'contact.html', {'error_message': str(e)})
-            
+        # Redirect the user to a thank you page or the home page
+        return HttpResponseRedirect(reverse('thank_you'))
     else:
         return HttpResponseRedirect(reverse('contact'))  # Redirect if not a POST request
-
