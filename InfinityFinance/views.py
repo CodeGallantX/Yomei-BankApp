@@ -14,6 +14,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.conf import settings
 
+
 def home(request):
     return render(request, 'InfinityFinance/homepage.html')
 
