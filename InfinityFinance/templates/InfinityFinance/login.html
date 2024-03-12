@@ -1,202 +1,208 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Login</title>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins">
-<style>
-    html {
-        height: 100%;
-      }
-      body {
-        margin:0;
-        padding:0;
-        font-family: Poppins;
-        background: linear-gradient(#141e30, #243b55);
-      }
-      
-      .login-box {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 400px;
-        padding: 40px;
-        transform: translate(-50%, -50%);
-        background: rgba(0,0,0,.5);
-        box-sizing: border-box;
-        box-shadow: 0 15px 25px rgba(0,0,0,.6);
-        border-radius: 10px;
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Login Form with validation Example</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
+  <style>
+    body {
+        background-color: #9f9da7;
+        font-size: 1.6rem;
+        font-family: "Open Sans", sans-serif;
+        color: #2b3e51;
       }
       
-      .login-box h2 {
-        margin: 0 0 30px;
-        padding: 0;
-        color: #fff;
+      h2 {
+        font-weight: 300;
         text-align: center;
       }
       
-      .login-box .user-box {
+      p {
         position: relative;
       }
       
-      .login-box .user-box input {
+      a,
+      a:link,
+      a:visited,
+      a:active {
+        color: #3ca9e2;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+      }
+      a:focus, a:hover,
+      a:link:focus,
+      a:link:hover,
+      a:visited:focus,
+      a:visited:hover,
+      a:active:focus,
+      a:active:hover {
+        color: #329dd5;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+      }
+      
+      #login-form-wrap {
+        background-color: #fff;
+        width: 35%;
+        margin: 30px auto;
+        text-align: center;
+        padding: 20px 0 0 0;
+        border-radius: 4px;
+        box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
+      }
+      
+      #login-form {
+        padding: 0 60px;
+      }
+      
+      input {
+        display: block;
+        box-sizing: border-box;
         width: 100%;
-        padding: 10px 0;
-        font-size: 16px;
-        color: #fff;
-        margin-bottom: 30px;
-        border: none;
-        border-bottom: 1px solid #fff;
         outline: none;
-        background: transparent;
-        font-family: Poppins;
+        height: 60px;
+        line-height: 60px;
+        border-radius: 4px;
       }
-      .login-box .user-box label {
-        position: absolute;
-        top:0;
-        left: 0;
-        padding: 10px 0;
+      
+      input[type="text"],
+      input[type="email"] {
+        width: 100%;
+        padding: 0 0 0 10px;
+        margin: 0;
+        color: #8a8b8e;
+        border: 1px solid #c2c0ca;
+        font-style: normal;
         font-size: 16px;
-        color: #fff;
-        pointer-events: none;
-        transition: .5s;
-        font-family: Poppins;
-      }
-      
-      .login-box .user-box input:focus ~ label,
-      .login-box .user-box input:valid ~ label {
-        top: -20px;
-        left: 0;
-        color: #03e9f4;
-        font-size: 12px;
-      }
-      
-      .login-box form a {
+        -webkit-appearance: none;
+           -moz-appearance: none;
+                appearance: none;
         position: relative;
         display: inline-block;
-        padding: 10px 20px;
-        color: #03e9f4;
-        font-size: 16px;
-        text-decoration: none;
-        text-transform: uppercase;
-        overflow: hidden;
-        transition: .5s;
-        margin-top: 40px;
-        letter-spacing: 4px;
-        font-family: Poppins;
+        background: none;
       }
-      
-      .login-box a:hover {
-        background: #03e9f4;
-        color: #fff;
-        border-radius: 5px;
-        box-shadow: 0 0 5px #03e9f4,
-                    0 0 25px #03e9f4,
-                    0 0 50px #03e9f4,
-                    0 0 100px #03e9f4;
+      input[type="text"]:focus,
+      input[type="email"]:focus {
+        border-color: #3ca9e2;
       }
-      
-      .login-box a span {
-        position: absolute;
+      input[type="text"]:focus:invalid,
+      input[type="email"]:focus:invalid {
+        color: #cc1e2b;
+        border-color: #cc1e2b;
+      }
+      input[type="text"]:valid ~ .validation,
+      input[type="email"]:valid ~ .validation {
         display: block;
+        border-color: #0C0;
+      }
+      input[type="text"]:valid ~ .validation span,
+      input[type="email"]:valid ~ .validation span {
+        background: #0C0;
+        position: absolute;
+        border-radius: 6px;
+      }
+      input[type="text"]:valid ~ .validation span:first-child,
+      input[type="email"]:valid ~ .validation span:first-child {
+        top: 30px;
+        left: 14px;
+        width: 20px;
+        height: 3px;
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+      }
+      input[type="text"]:valid ~ .validation span:last-child,
+      input[type="email"]:valid ~ .validation span:last-child {
+        top: 35px;
+        left: 8px;
+        width: 11px;
+        height: 3px;
+        -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
       }
       
-      .login-box a span:nth-child(1) {
-        top: 0;
-        left: -100%;
+      .validation {
+        display: none;
+        position: absolute;
+        content: " ";
+        height: 60px;
+        width: 30px;
+        right: 15px;
+        top: 0px;
+      }
+      
+      input[type="submit"] {
+        border: none;
+        display: block;
+        background-color: #3ca9e2;
+        color: #fff;
+        font-weight: bold;
+        text-transform: uppercase;
+        cursor: pointer;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+        font-size: 18px;
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        text-align: center;
+      }
+      input[type="submit"]:hover {
+        background-color: #329dd5;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+      }
+      
+      #create-account-wrap {
+        background-color: #eeedf1;
+        color: #8a8b8e;
+        font-size: 14px;
         width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, #03e9f4);
-        animation: btn-anim1 1s linear infinite;
+        padding: 10px 0;
+        border-radius: 0 0 4px 4px;
       }
-      
-      @keyframes btn-anim1 {
-        0% {
-          left: -100%;
-        }
-        50%,100% {
-          left: 100%;
-        }
-      }
-      
-      .login-box a span:nth-child(2) {
-        top: -100%;
-        right: 0;
-        width: 2px;
-        height: 100%;
-        background: linear-gradient(180deg, transparent, #03e9f4);
-        animation: btn-anim2 1s linear infinite;
-        animation-delay: .25s
-      }
-      
-      @keyframes btn-anim2 {
-        0% {
-          top: -100%;
-        }
-        50%,100% {
-          top: 100%;
-        }
-      }
-      
-      .login-box a span:nth-child(3) {
-        bottom: 0;
-        right: -100%;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(270deg, transparent, #03e9f4);
-        animation: btn-anim3 1s linear infinite;
-        animation-delay: .5s
-      }
-      
-      @keyframes btn-anim3 {
-        0% {
-          right: -100%;
-        }
-        50%,100% {
-          right: 100%;
-        }
-      }
-      
-      .login-box a span:nth-child(4) {
-        bottom: -100%;
-        left: 0;
-        width: 2px;
-        height: 100%;
-        background: linear-gradient(360deg, transparent, #03e9f4);
-        animation: btn-anim4 1s linear infinite;
-        animation-delay: .75s
-      }
-      
-      @keyframes btn-anim4 {
-        0% {
-          bottom: -100%;
-        }
-        50%,100% {
-          bottom: 100%;
-        }
-      }
-</style>
+  </style>
 </head>
 <body>
-
-div class="login-box">
+<!-- partial:index.partial.html -->
+<div id="login-form-wrap">
   <h2>Login</h2>
-  <form>
-    {% csrf_token %}
-    <div class="user-box">
-      <input type="text" name="" required="">
-      <label>Username</label>
-    </div>
-    <div class="user-box">
-      <input type="password" name="" required="">
-      <label>Password</label>
-    </div>
-    <a href="#">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      Submit
-    </a>
+  <form id="login-form">
+    <p>
+    <input type="text" id="username" name="username" placeholder="Username" required><i class="validation"><span></span><span></span></i>
+    </p>
+    <p>
+    <input type="email" id="email" name="email" placeholder="Email Address" required><i class="validation"><span></span><span></span></i>
+    </p>
+    <p>
+    <input type="submit" id="login" value="Login">
+    </p>
   </form>
-</div>
+  <div id="create-account-wrap">
+    <p>Not a member? <a href="#">Create Account</a><p>
+  </div><!--create-account-wrap-->
+</div><!--login-form-wrap-->
+<!-- partial -->
+  
+<!-- Ad Start --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9265886855150834"
+     crossorigin="anonymous"></script>
+<!-- manual codehim -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9265886855150834"
+     data-ad-slot="5696797155"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script><!-- Ad End --><!-- Analytics Start --><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80520768-2"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "UA-80520768-2");
+</script><!-- Analytics End --></body>
+</html>
