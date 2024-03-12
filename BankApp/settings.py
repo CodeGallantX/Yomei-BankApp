@@ -128,4 +128,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Admin Details
-ADMIN_EMAIL = 
+ADMIN_EMAIL = 'sayojami2007@gmail.com'
