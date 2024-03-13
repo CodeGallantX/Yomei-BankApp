@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'InfinityFinance',
+    'transactions',
     'django.contrib.auth',
     'django.contrib.admin',
     'django.contrib.contenttypes',
@@ -129,11 +130,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Admin Details and SMTP
 ADMIN_EMAIL = 'sayojami2007@gmail.com'
+
+# SMTP
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.example.com'  # Replace with your SMTP server
 EMAIL_PORT = 587  # Replace with your SMTP port
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your_email@example.com'  # Replace with your email address
+EMAIL_HOST_USER = 'sayojami2007@gmail.com'  # Replace with your email address
 EMAIL_HOST_PASSWORD = 'your_password'
 
 

@@ -36,6 +36,9 @@ urlpatterns = [
     path('thank-you/', infinity_views.thank_you, name='thank_you'),
     
     path('buy-airtime/', infinity_views.buy_airtime, name='buy_airtime'),
+
+    # TRANSACTIONS
+    path('transactions/', include('transactions.urls')),
 ]
 
 
