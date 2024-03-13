@@ -26,10 +26,11 @@ def error_404(request, exception):
 
 
 
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import TransferForm
-
+'''
 def transfer(request):
     if request.method == 'POST':
         form = TransferForm(request.POST)
@@ -62,7 +63,7 @@ def transfer(request):
 
     return render(request, 'transfer.html', {'form': form})
 
-    
+
 def deposit(request):
     if request.method == 'POST':
         form = DepositForm(request.POST)
@@ -102,7 +103,7 @@ def withdraw(request):
                 form.add_error('amount', 'Insufficient balance')
     else:
         form = WithdrawForm()
-    return render(request, 'InfinityFinance/withdraw.html', {'form': form})
+    return render(request, 'InfinityFinance/withdraw.html', {'form': form})'''
 
 class CustomLoginView(LoginView):
     template_name = 'InfinityFinance/login.html'
@@ -138,8 +139,8 @@ def login_view(request):
 @login_required
 def dashboard(request):
     user = request.user
-    wallet = Wallet.objects.get(user=user)
-    transactions = Transaction.objects.filter(wallet=wallet)
+   # wallet = Wallet.objects.get(user=user)
+    #transactions = Transaction.objects.filter(wallet=wallet)
     bills = Bill.objects.filter(user=user)
     airtime_purchases = AirtimePurchase.objects.filter(user=user)
     context = {
