@@ -14,7 +14,6 @@ from transactions.forms import (
 )
 from transactions.models import Transaction
 
-
 class TransactionRepostView(LoginRequiredMixin, ListView):
     template_name = 'transactions/transaction_report.html'
     model = Transaction

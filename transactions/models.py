@@ -2,8 +2,6 @@ from django.db import models
 from .constants import TRANSACTION_TYPE_CHOICES
 from InfinityFinance.models import UserBankAccount
 
-# Register your models
-
 class Transaction(models.Model):
     account = models.ForeignKey(
         UserBankAccount,
