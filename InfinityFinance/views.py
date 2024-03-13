@@ -157,11 +157,11 @@ def transfer(request):
 
 def pay_bill(request):
     # Implement bill payment logic here
-    pass
+    return render(request, 'bills.html')
 
 def buy_airtime(request):
     # Implement airtime purchase logic here
-    pass
+    return render(request, 'buy-airtime.html')
 
 def contact(request):
     return render(request, 'InfinityFinance/contact.html')
