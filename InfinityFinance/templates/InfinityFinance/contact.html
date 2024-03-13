@@ -367,7 +367,7 @@ submitBtn.addEventListener('click', validate);
       <h1>Contact us</h1>
       <p>For banking inquiries or account assistance, reach out to our team for personalized support tailored to your needs.</p>
       
-      <form id="contact-form" method="post" action="mailto:sayojami2007@gmail.com">
+      <form id="contact-form" method="post" action="send_email.php">
         {% csrf_token %}
         <label for="name">Full name</label>
         <input type="text" id="name" name="name" placeholder="Your Full Name" required>
