@@ -1,11 +1,12 @@
+
+{% extends 'base.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction Report</title>
-
+    <title>Transactions</title>
     <style>
         /* Add your CSS styles here */
 body {
@@ -80,30 +81,61 @@ table tbody tr:hover {
     </style>
 </head>
 <body>
-    <h1>Transaction Report</h1>
-    <form method="get" action="">
-        {{ form }}
-        <button type="submit">Filter</button>
-    </form>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Account No</th>
-                <th>Amount</th>
-                <th>Transaction Type</th>
-                <th>Timestamp</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for transaction in object_list %}
-                <tr>
-                    <td>{{ transaction.account }}</td>
-                    <td>{{ transaction.amount }}</td>
-                    <td>{{ transaction.get_transaction_type_display }}</td>
-                    <td>{{ transaction.timestamp }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<div class="container">
+    <div class="row">
+        <div class="col-12 mb-3 mb-lg-5">
+            <div class="position-relative card table-nowrap table-card">
+                <div class="card-header align-items-center">
+                    <h5 class="mb-0">Latest Transactions</h5>
+                    <p class="mb-0 small text-muted">1 Pending</p>
+                </div>
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead class="small text-uppercase bg-body text-muted">
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Replace or append this section with your dynamic transaction data -->
+                            {% for transaction in object_list %}
+                            <tr class="align-middle">
+                                <td>{{ transaction.id }}</td>
+                                <td>{{ transaction.timestamp }}</td>
+                                <td>{{ transaction.account.user.get_full_name }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        {% if transaction.transaction_type == 1 %}
+                                        <span><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
+                                        {% elif transaction.transaction_type == 2 %}
+                                        <span><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
+                                        {% endif %}
+                                        <span>${{ transaction.amount }}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if transaction.status == 'completed' %}
+                                    <span class="badge fs-6 fw-normal bg-tint-success text-success">Completed</span>
+                                    {% elif transaction.status == 'pending' %}
+                                    <span class="badge fs-6 fw-normal bg-tint-warning text-warning">Pending</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <!-- End of dynamic transaction data -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
 </body>
 </html>
