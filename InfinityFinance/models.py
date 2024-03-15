@@ -76,7 +76,7 @@ class AirtimePurchase(models.Model):
 '''
 
 # Create your models here.
-class Customer_Data(models.Model):
+class Customer(models.Model):
     Cust_ID = models.AutoField(primary_key=True)
     Name = models.CharField(max_length=200)
     Phone_no = models.CharField(max_length=10)
@@ -87,9 +87,9 @@ class Customer_Data(models.Model):
     class Meta:
         db_table = 'customer'
    
-class Account_Data(models.Model):
+class Account(models.Model):
     Accno = models.IntegerField(primary_key=True)
-    Owner = models.ForeignKey(Customer_Data, on_delete=models.CASCADE)
+    Owner = models.ForeignKey( Customer, on_delete=models.CASCADE)
     Balance = models.FloatField()
     #Name = models.CharField(max_length=200)
     class Meta:
@@ -112,7 +112,7 @@ class Withdraws(models.Model):
 
 class Transactions(models.Model): 
     Trans_ID = models.AutoField(primary_key=True)
-    Accno = models.ForeignKey(Account_Data, on_delete=models.CASCADE)
+    Accno = models.ForeignKey( Account, on_delete=models.CASCADE)
     Amount = models.FloatField()
     Type = models.CharField(max_length=30)
     #Type can be "withdraw" or "deposit"
@@ -121,8 +121,8 @@ class Transactions(models.Model):
         
 class Money_Transfers(models.Model):             
     Trans_ID = models.AutoField(primary_key=True)
-    From_accno = models.ForeignKey(Account_Data, on_delete=models.CASCADE, related_name = 'From_accno')
-    To_accno = models.ForeignKey(Account_Data, on_delete=models.CASCADE, related_name = 'To_accno')
+    From_accno = models.ForeignKey( Account, on_delete=models.CASCADE, related_name = 'From_accno')
+    To_accno = models.ForeignKey( Account, on_delete=models.CASCADE, related_name = 'To_accno')
     Amount = models.FloatField()
     class Meta:
         db_table = 'transfers'
@@ -133,7 +133,7 @@ class ECS_Data(models.Model):
     ECS_ID = models.AutoField(primary_key=True)
     Payer_Name = models.CharField(max_length=300)
     Upper_Limit = models.FloatField()
-    Account = models.ForeignKey(Account_Data, on_delete=models.CASCADE)
+    Account = models.ForeignKey(Account, on_delete=models.CASCADE)
     class Meta:
         db_table = 'ecs'
     

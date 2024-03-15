@@ -35,7 +35,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'InfinityFinance',
-    'transactions',
     'django.contrib.auth',
     'django.contrib.admin',
     'django.contrib.contenttypes',

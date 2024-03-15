@@ -27,7 +27,7 @@ urlpatterns = [
     #path('deposit/', infinity_views.deposit, name='deposit'),
     #path('withdraw/', infinity_views.withdraw, name='withdraw'),'''
 
-    path('log_in/', infinity_views.log_in, name='log_in'),
+    path('login/', infinity_views.signin, name='login'),
     path('logout/', infinity_views.logout, name='logout'),
     path('register/', infinity_views.register, name='register'),
 
@@ -35,11 +35,25 @@ urlpatterns = [
     path('contact/', infinity_views.contact, name='contact'),
     #path('send-email/', infinity_views.send_email, name='send-email'),
     path('thank-you/', infinity_views.thank_you, name='thank_you'),
-    
-    path('buy-airtime/', infinity_views.buy_airtime, name='buy_airtime'),
+  
+  #  path('buy-airtime/', infinity_views.buy_airtime, name='buy_airtime'),
 
     # TRANSACTIONS
-    path('transactions/', include('transactions.urls')),
+    # path('transactions/', include('transactions.urls')),
+
+    path("redirect_from_dashboard/", infinity_views.get_function_chosen, name = "get_function_chosen"),
+    path("account_management/", infinity_views.account_management, name='account_management'),
+    path("process_account_action/", infinity_views.get_account_action, name='get_account_action'),
+    path("withdraw/", infinity_views.withdraw, name='withdraw'),
+    path("deposit/", infinity_views.deposit, name='deposit'),
+    path("stat_gen/", infinity_views.stat_gen, name='stat_gen'),
+    path("get_stat_gen/", infinity_views.get_transaction_action, name='get_transaction_action'),
+    path("show_ecs_options/", infinity_views.show_ecs_options, name='show_ecs_options'),
+    path("redirect_ecs/", infinity_views.redirect_ecs, name='redirect_ecs'),
+    path("start_ecs/", infinity_views.start_ecs, name='start_ecs'),
+    path("store_new_ecs_data/", infinity_views.store_new_ecs_data, name='store_new_ecs_data'),
+    path("show_due_bills/", infinity_views.show_due_bills, name='show_due_bills'),
+    path("pay_bill/", infinity_views.pay_bill, name='pay_bill'),
 ]
 
 
