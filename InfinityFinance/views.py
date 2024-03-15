@@ -209,27 +209,38 @@ def register(request):
 
         return redirect('dashboard')
 
+        try:
+            user = User.objects.create_user(username=username, password=password, first_name=first_name, last_name=last_name)
+            return render(request, 'InfinityFinance/login.html', {'first_name': user.first_name})
+        except IntegrityError:
+            messages.error(request, "Username already exists")
+            return redirect('register')
+
 
     return render(request, 'InfinityFinance/register.html')
 
 
-def login(request):
-
+def log_in(request):
     if request.method == 'POST':
-        username = request.POST['email']
+        email = request.POST['email']
         pass1 = request.POST['pass1']
 
-        user = authenticate(email = email, password=pass1)
+        user = authenticate(email=email, password=pass1)
 
         if user is not None:
             login(request, user)
-            user.firstname
-            return render(request, 'InfinityFinance/login.html', {'first_name':first_name})
+            first_name = user.first_name  # Assigning user.first_name to a variable
+            return render(request, 'InfinityFinance/dashboard.html', {'first_name': first_name})
 
         else:
             messages.error(request, "Bad Credentials")
             return redirect('home')
 
+    return render(request, 'InfinityFinance/login.html')
+    
+
 
 def logout(request):
-    pass
+    logout(request)
+    messages.success(request, "Logged out successfully!!")
+    return redirect('home')

@@ -27,7 +27,7 @@ urlpatterns = [
     #path('deposit/', infinity_views.deposit, name='deposit'),
     #path('withdraw/', infinity_views.withdraw, name='withdraw'),'''
 
-    path('login/', infinity_views.login, name='login'),
+    path('log_in/', infinity_views.log_in, name='log_in'),
     path('logout/', infinity_views.logout, name='logout'),
     path('register/', infinity_views.register, name='register'),
 
