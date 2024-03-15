@@ -102,15 +102,22 @@
         .dashboard-actions a:hover {
             background-color: #0288d1;
         }
+
+        blockquote {
+            bor
+        }
     </style>
 </head>
 <body>
 
-    {%  %}
+    
     
     <div class="dashboard-container">
         <div class="dashboard-header">
-            <h1>Welcome, {{  }}</h1>
+            {% if user.is_authenticated %}
+            <h1>Welcome, {{ first_name }}</h1>
+            <blockquote>Login successful!</blockquote>
+
             <div class="balance-info">
                 <h2>Account Balance: $500.00</h2>
             </div>
