@@ -125,6 +125,10 @@
     <h1>Create Account</h1>
     <form method="POST" id="user-account-form" action="/register/">
         {% csrf_token %}
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+
         <label for="first_name">First Name:</label>
         <input type="text" name="first_name" id="first_name" placeholder="Enter your First Name">
     

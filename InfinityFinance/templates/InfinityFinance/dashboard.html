@@ -122,14 +122,15 @@
     {% if user.is_authenticated %}
     <div class="dashboard-container">
         <div class="dashboard-header">
-            <h1>Welcome, {{ first_name }}</h1>
+            <h1>Welcome, {{ register.username }}</h1>
             <blockquote>Login successful!</blockquote>
 
             <div class="balance-info">
                 <h2>Account Balance: $500.00</h2>
             </div>
 
-            <button type="submit"><a href="/logout/"></a>LogOut</button>
+            <a href="/logout/">Logout</a>
+
         </div>
 
         <h2>Latest Transactions</h2>

@@ -187,7 +187,6 @@ def thank_you(request):
 
 
 def register(request):
-
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
@@ -195,47 +194,48 @@ def register(request):
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
 
-        myuser = User.objects.create_user(first_name, email, pass1)
-         
-         
-        myuser.save()
-
-        messages.success(request, 'Your account has been successfully created!')
-
-        return redirect('dashboard')
+        username = request.POST['username']  # Add this line to get the username
 
         try:
-            user = User.objects.create_user(username=username, password=password, first_name=first_name, last_name=last_name)
-            return render(request, 'InfinityFinance/login.html', {'first_name': user.first_name})
+            user = User.objects.create_user(username=username, password=pass1, first_name=first_name, last_name=last_name, email=email)
+            messages.success(request, 'Your account has been successfully created!')
+            return redirect('dashboard')
         except IntegrityError:
             messages.error(request, "Username already exists")
             return redirect('register')
 
-
     return render(request, 'InfinityFinance/register.html')
 
 
+
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+
 def signin(request):
     if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['pass1']  # Assuming password field is named 'password'
+        email = request.POST.get('email')
+        password = request.POST.get('pass1')  # Assuming password field is named 'pass1'
 
+        # Authenticate user
         user = authenticate(request, email=email, password=password)
 
         if user is not None:
+            # Login user if authentication successful
             login(request, user)
-            first_name = user.first_name  # Accessing user's first name
-            return render(request, 'InfinityFinance/dashboard.html', {'first_name': first_name})
+            email = user.email  # Accessing user's email address
+            return render(request, 'InfinityFinance/dashboard.html', {'email':email})
         else:
-            messages.error(request, "Bad Credentials")
-            return redirect('home')
+            # Display error message if authentication failed
+            messages.error(request, "Invalid email or password.")
+            return redirect('home')  # Assuming 'home' is the name of the URL pattern for the home page
 
+    # If request method is not POST, render the login page
     return render(request, 'InfinityFinance/login.html')
-    
 
 
-def logout(request):
-    logout(request)
+def signout(request):
+    signout(request)
     messages.success(request, "Logged out successfully!!")
     return redirect('home')
 
@@ -264,57 +264,43 @@ def randomGen():
 def display_menu(request):
     global cur_customer
     user_log_in = Classes.Login_Details(request.user.username, request.user.password)
-    #Check if customer is a new or existing customer
-    cust_details = Customer_Data.objects.filter(Name = user_log_in.username)
-    print("cust_details", cust_details)
-    if(cust_details):
-       print("Existing Customer")
-       customer = Classes.Customer(user_log_in)
-       print("customer obj", customer)
+    cust_details = Customer_Data.objects.filter(Name=user_log_in.username)
+    if cust_details:
+        customer = Classes.Customer(user_log_in)
     else:
-        print("Making New Customer")
         customer = Classes.New_Customer(user_log_in, user_log_in.username, '9999999999', 'saa@gmail.com')
-    print("Customer name:", customer.customer_data.Name)
     cur_customer = customer
-    return render(request, 'InfinityFinance/user_account.html', 
-    {'customer':customer})
+    return render(request, 'InfinityFinance/user_account.html', {'customer': customer})
+
   
 def account_management(request):
     accounts = cur_customer.accounts
     user_accnos = list(accounts.keys())
-    print("user_accnos", user_accnos)
-    return render(request, 'InfinityFinance/account_details.html', 
-    {'customer':cur_customer, 'accounts':accounts, 'can_close_accnos':user_accnos})
+    return render(request, 'InfinityFinance/account_details.html', {'customer': cur_customer, 'accounts': accounts, 'can_close_accnos': user_accnos})
 
 
 def withdraw(request):
     accounts = cur_customer.accounts
-    msg="<br>Enter a valid account no. and also check for ur balance!</p><br>"
+    msg = ""
     if request.method == "POST":
-        acc_num=int(request.POST.get('acc_no'))
-        amount=int(request.POST.get('amount'))
-        print('requestPOST=',acc_num,type(acc_num))
-        #print('account dict:',accounts.keys())
+        acc_num = int(request.POST.get('acc_no'))
+        amount = int(request.POST.get('amount'))
         if acc_num in accounts:
-            #acc_obj= accounts[acc_num]
-            acc_q=Account_Data.objects.get(Accno=acc_num)
-            balance=acc_q.Balance
-            print("balance:",balance)
-            if(balance>=amount):
-                trans=Classes.Account(acc_q)
-                trans.create_transaction(amount,"withdraw")
-                balance-=amount
-                acc_q.Balance=balance
-                print("balance:",acc_q.Balance)
+            acc_q = Account_Data.objects.get(Accno=acc_num)
+            balance = acc_q.Balance
+            if balance >= amount:
+                trans = Classes.Account(acc_q)
+                trans.create_transaction(amount, "withdraw")
+                balance -= amount
+                acc_q.Balance = balance
                 acc_q.save()
-                cur_customer.accounts[acc_num].account_details.Balance-=amount
-                msg="<td>Withdrawn Successfully!</td><br>"
+                cur_customer.accounts[acc_num].account_details.Balance -= amount
+                msg = "<td>Withdrawn Successfully!</td><br>"
             else:
-                msg="<td>Not sufficient balance!</td><br>"
-            
+                msg = "<td>Not sufficient balance!</td><br>"
         else:
-            msg="<p>Invalid account number</p><br>"
-    return render(request, 'InfinityFinance/withdraw.html',{'customer':cur_customer, 'accounts':accounts,'msg':msg})
+            msg = "<p>Invalid account number</p><br>"
+    return render(request, 'InfinityFinance/withdraw.html', {'customer': cur_customer, 'accounts': accounts, 'msg': msg})
     #'customer':cur_customer, 'accounts':accounts
 
 def deposit(request):
@@ -460,12 +446,13 @@ def show_due_bills(request):
 def pay_bill(request):
     bill_id = request.GET['bill_id']
     print("bill_id", bill_id)
-    bill_obj = Bills.objects.get(id=bill_id);
+    bill_obj = Bills.objects.get(id=bill_id)
     bill_obj.Completed = True
     bill_obj.save()
     return redirect('InfinityFinance:show_due_bills')
            
 '''    
+#Testing classes
 def test_classes(request):
     print("got to test classes")
     login_obj = Classes.Login_Details('anj', 'anj123')

@@ -28,7 +28,7 @@ urlpatterns = [
     #path('withdraw/', infinity_views.withdraw, name='withdraw'),'''
 
     path('login/', infinity_views.signin, name='login'),
-    path('logout/', infinity_views.logout, name='logout'),
+    path('logout/', infinity_views.signout, name='logout'),
     path('register/', infinity_views.register, name='register'),
 
     path('dashboard/', infinity_views.dashboard, name='dashboard'),
