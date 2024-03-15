@@ -305,28 +305,24 @@ def withdraw(request):
 
 def deposit(request):
     accounts = cur_customer.accounts
-    msg="<br>Enter a valid account no. and also check for ur balance!</p><br>"
+    msg = ""
     if request.method == "POST":
-        acc_num=int(request.POST.get('acc_no'))
-        amount=int(request.POST.get('amount'))
-        print('requestPOST=',acc_num,type(acc_num))
-        #print('account dict:',accounts.keys())
+        acc_num = int(request.POST.get('acc_no'))
+        amount = int(request.POST.get('amount'))
         if acc_num in accounts:
-            #acc_obj= accounts[acc_num]
-            acc_q=Account_Data.objects.get(Accno=acc_num)
-            balance=acc_q.Balance
-            print("balance:",balance)
-            trans=Classes.Account(acc_q)
-            trans.create_transaction(amount,"deposit")
-            balance+=amount
-            acc_q.Balance=balance
-            print("balance:",acc_q.Balance)
+            acc_q = Account_Data.objects.get(Accno=acc_num)
+            balance = acc_q.Balance
+            trans = Classes.Account(acc_q)
+            trans.create_transaction(amount, "deposit")
+            balance += amount
+            acc_q.Balance = balance
             acc_q.save()
-            cur_customer.accounts[acc_num].account_details.Balance+=amount
-            msg="<td>Deposited Successfully!</td><br>"
+            cur_customer.accounts[acc_num].account_details.Balance += amount
+            msg = "<td>Deposited Successfully!</td><br>"
         else:
-            msg="<p>Invalid account number</p><br>"
-    return render(request, 'InfinityFinance/deposit.html',{'customer':cur_customer, 'accounts':accounts,'msg':msg})
+            msg = "<p>Invalid account number</p><br>"
+    return render(request, 'InfinityFinance/deposit.html', {'customer': cur_customer, 'accounts': accounts, 'msg': msg})
+
 
 def stat_gen(request):
     accounts = cur_customer.accounts
