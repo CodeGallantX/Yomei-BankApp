@@ -135,13 +135,13 @@ def dashboard(request):
     user = request.user
    # wallet = Wallet.objects.get(user=user)
     #transactions = Transaction.objects.filter(wallet=wallet)
-    bills = Bill.objects.filter(user=user)
-    airtime_purchases = AirtimePurchase.objects.filter(user=user)
+    #bills = Bill.objects.filter(user=user)
+    #airtime_purchases = AirtimePurchase.objects.filter(user=user)
     context = {
         #'wallet': wallet,
         #'transactions': transactions,
-        'bills': bills,
-        'airtime_purchases': airtime_purchases
+        #'bills': bills,
+        #'airtime_purchases': airtime_purchases
     }
     return render(request, 'InfinityFinance/dashboard.html', context)
 
@@ -218,15 +218,14 @@ def register(request):
 def signin(request):
     if request.method == 'POST':
         email = request.POST['email']
-        pass1 = request.POST['pass1']
+        password = request.POST['pass1']  # Assuming password field is named 'password'
 
-        user = authenticate(email=email, password=pass1)
+        user = authenticate(request, email=email, password=password)
 
         if user is not None:
             login(request, user)
-            email = user.email  # Assigning user.email to a variable
+            first_name = user.first_name  # Accessing user's first name
             return render(request, 'InfinityFinance/dashboard.html', {'first_name': first_name})
-
         else:
             messages.error(request, "Bad Credentials")
             return redirect('home')
