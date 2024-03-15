@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Account Form</title>
+    <link rel="shortcut icon" type="image/png" href="https://ik.imagekit.io/mshcgnjju/image.png?updatedAt=1710462047544" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <style>
@@ -126,41 +127,30 @@
   </div>
 <div class="container">
     <h1>Create Account</h1>
-    <form method="POST" id="user-account-form">
+    <form method="POST" id="user-account-form" action="/register/">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="first_name">First Name</label>
-            {{ form.first_name }}
-        </div>
-        <div class="form-group">
-            <label for="last_name">Last Name</label>
-            {{ form.last_name }}
-        </div>
-        <div class="form-group">
-            <label for="id_email">Email</label>
-            {{ form.email }}
-        </div>
-        <div class="form-group">
-            <label for="phone_number">Phone Number</label>
-            <input type="number" name="phone_number" required id="phone_number">
-            {{ form.phone_number }}
-        </div>
-        <div class="form-group">
-          <label for="id_password">Password</label>
-          <input type="password" name="password1" required id="id_password">
-          <span class="error-message">{{ form.errors.password1 }}</span>
-      </div>
-      <div class="form-group">
-          <label for="id_confirm_password">Confirm Password</label>
-          <input type="password" name="password2" required id="id_confirm_password">
-          <span class="error-message">{{ form.errors.password2 }}</span>
-      </div>
-      <div class="btn-con">
+        <label for="first_name">First Name:</label>
+        <input type="text" name="first_name" id="first_name" placeholder="Enter your First Name">
+    
+        <label for="last_name">Last Name</label>
+        <input type="text" name="last_name" id="last_name" placeholder="Enter your Last Name">
+    
+        <label for="email">Email Address</label>
+        <input type="email" name="email" id="email" placeholder="Enter your Email Address">
+    
+        <label for="pass1">Password</label>
+        <input type="password" name="pass1" id="pass1"  placeholder="Create a Password">
+        <span class="error-message">{{ form.errors.password1 }}</span>
+    
+        <label for="pass2">Confirm your password</label>
+        <input type="password" id="pass2" name="pass2"  placeholder="Confirm your Password">
+        <span class="error-message">{{ form.errors.password2 }}</span>
+        
         <button type="submit" class="btn">Submit</button>
         <button class="btn" onclick="window.location.href='/'">Cancel</button>
-      </div>
-      <p>Have an account? <a href="/login">Login</a></p>
+        <p>Have an account? <a href="/login">Login</a></p>
     </form>
+    
 </div>
 
 </body>

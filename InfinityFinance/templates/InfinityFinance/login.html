@@ -170,12 +170,13 @@
 <!-- partial:index.partial.html -->
 <div id="login-form-wrap">
   <h2>Login</h2>
-  <form id="login-form">
+  <form action="/signup/" id="login-form" method="POST">
+    {% csrf_token %}
     <p>
-    <input type="text" id="username" name="username" placeholder="Username" required><i class="validation"><span></span><span></span></i>
+    <input type="text" id="email" name="email" placeholder="Username" required><i class="validation"><span></span><span></span></i>
     </p>
     <p>
-    <input type="email" id="email" name="email" placeholder="Email Address" required><i class="validation"><span></span><span></span></i>
+    <input type="password" id="password" name="pass1" placeholder="Email Address" required><i class="validation"><span></span><span></span></i>
     </p>
     <p>
     <input type="submit" id="login" value="Login">
@@ -196,14 +197,4 @@
      data-ad-slot="5696797155"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script><!-- Ad End --><!-- Analytics Start --><!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80520768-2"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-  gtag("js", new Date());
-  gtag("config", "UA-80520768-2");
-</script><!-- Analytics End --></body>
 </html>

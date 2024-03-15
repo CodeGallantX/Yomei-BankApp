@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
@@ -105,12 +106,11 @@ def withdraw(request):
         form = WithdrawForm()
     return render(request, 'InfinityFinance/withdraw.html', {'form': form})'''
 
-class CustomLoginView(LoginView):
-    template_name = 'InfinityFinance/login.html'
 
-class CustomLogoutView(LogoutView):
-    next_page = reverse_lazy('login')
 
+
+
+'''
 def register_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -133,7 +133,7 @@ def login_view(request):
             return redirect('dashboard')  # Redirect to account details page
         else:
             messages.error(request, 'Invalid username or password')
-    return render(request, 'login.html')
+    return render(request, 'login.html')'''
 
 
 @login_required
@@ -144,8 +144,8 @@ def dashboard(request):
     bills = Bill.objects.filter(user=user)
     airtime_purchases = AirtimePurchase.objects.filter(user=user)
     context = {
-        'wallet': wallet,
-        'transactions': transactions,
+        #'wallet': wallet,
+        #'transactions': transactions,
         'bills': bills,
         'airtime_purchases': airtime_purchases
     }
@@ -189,3 +189,47 @@ def thank_you(request):
     else:
         return HttpResponseRedirect(reverse('contact'))  # Redirect if not a POST request'''
 
+
+
+def register(request):
+
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        pass1 = request.POST['pass1']
+        pass2 = request.POST['pass2']
+
+        myuser = User.objects.create_user(first_name, email, pass1)
+         
+         
+        myuser.save()
+
+        messages.success(request, 'Your account has been successfully created!')
+
+        return redirect('dashboard')
+
+
+    return render(request, 'InfinityFinance/register.html')
+
+
+def login(request):
+
+    if request.method == 'POST':
+        username = request.POST['email']
+        pass1 = request.POST['pass1']
+
+        user = authenticate(email = email, password=pass1)
+
+        if user is not None:
+            login(request, user)
+            user.firstname
+            return render(request, 'InfinityFinance/login.html', {'first_name':first_name})
+
+        else:
+            messages.error(request, "Bad Credentials")
+            return redirect('home')
+
+
+def logout(request):
+    pass
