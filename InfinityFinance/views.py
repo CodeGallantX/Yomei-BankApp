@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm
@@ -235,10 +235,9 @@ def signin(request):
 
 
 def signout(request):
-    signout(request)
+    logout(request)  # Call the logout function to log out the user
     messages.success(request, "Logged out successfully!!")
     return redirect('home')
-
 
 
 
@@ -261,6 +260,7 @@ def randomGen():
     # return a 6 digit random number
     return int(random.uniform(100000, 999999))
 
+
 def display_menu(request):
     global cur_customer
     user_log_in = Classes.Login_Details(request.user.username, request.user.password)
@@ -280,27 +280,39 @@ def account_management(request):
 
 
 def withdraw(request):
+    if cur_customer is None:
+        # Handle the case when cur_customer is None
+        # Redirect the user to an appropriate page or display an error message
+        return HttpResponse("Error: No customer information found. Please try again.")
+
     accounts = cur_customer.accounts
-    msg = ""
+    msg="<br>Enter a valid account no. and also check for ur balance!</p><br>"
     if request.method == "POST":
-        acc_num = int(request.POST.get('acc_no'))
-        amount = int(request.POST.get('amount'))
+        acc_num=int(request.POST.get('acc_no'))
+        amount=int(request.POST.get('amount'))
+        print('requestPOST=',acc_num,type(acc_num))
+        #print('account dict:',accounts.keys())
         if acc_num in accounts:
-            acc_q = Account_Data.objects.get(Accno=acc_num)
-            balance = acc_q.Balance
-            if balance >= amount:
-                trans = Classes.Account(acc_q)
-                trans.create_transaction(amount, "withdraw")
-                balance -= amount
-                acc_q.Balance = balance
+            #acc_obj= accounts[acc_num]
+            acc_q=Account_Data.objects.get(Accno=acc_num)
+            balance=acc_q.Balance
+            print("balance:",balance)
+            if(balance>=amount):
+                trans=Classes.Account(acc_q)
+                trans.create_transaction(amount,"withdraw")
+                balance-=amount
+                acc_q.Balance=balance
+                print("balance:",acc_q.Balance)
                 acc_q.save()
-                cur_customer.accounts[acc_num].account_details.Balance -= amount
-                msg = "<td>Withdrawn Successfully!</td><br>"
+                cur_customer.accounts[acc_num].account_details.Balance-=amount
+                msg="<td>Withdrawn Successfully!</td><br>"
             else:
-                msg = "<td>Not sufficient balance!</td><br>"
+                msg="<td>Not sufficient balance!</td><br>"
+            
         else:
-            msg = "<p>Invalid account number</p><br>"
-    return render(request, 'InfinityFinance/withdraw.html', {'customer': cur_customer, 'accounts': accounts, 'msg': msg})
+            msg="<p>Invalid account number</p><br>"
+    return render(request, 'InfinityFinance/withdraw.html',{'customer':cur_customer, 'accounts':accounts,'msg':msg})
+
     #'customer':cur_customer, 'accounts':accounts
 
 def deposit(request):
@@ -456,7 +468,4 @@ def test_classes(request):
     acc_obj = Classes.Account(1111)
     new_acc_obj = Classes.New_Account(111, cust_obj)
     new_cust_obj = Classes.New_Customer(login_obj, 'anjali', 'addr1', '99880')
-'''    
-    
-
-        
+'''

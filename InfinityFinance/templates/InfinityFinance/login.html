@@ -3,7 +3,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>User Login</title>
+  <title>Login</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 
@@ -13,7 +13,7 @@
         font-size: 1rem;
         font-family: "Poppins", sans-serif;
         color: #2b3e51;
-        padding-top: 50px;
+        padding-top: 30px;
       }
       
       h2 {
@@ -73,7 +73,8 @@
       }
       
       input[type="email"],
-      input[type="password"] {
+      input[type="password"],
+      input[type="text"] {
         width: 100%;
         padding: 0 0 0 10px;
         margin: 0;
@@ -89,27 +90,32 @@
         background: none;
       }
       input[type="email"]:focus,
-      input[type="password"]:focus {
+      input[type="password"]:focus,
+      input[type="text"]:focus {
         border-color: #3ca9e2;
       }
       input[type="email"]:focus:invalid,
-      input[type="password"]:focus:invalid {
+      input[type="password"]:focus:invalid,
+      input[type="text"]:focus:invalid {
         color: #cc1e2b;
         border-color: #cc1e2b;
       }
       input[type="email"]:valid ~ .validation,
-      input[type="password"]:valid ~ .validation {
+      input[type="password"]:valid ~ .validation,
+      input[type="text"]:valid ~ .validation {
         display: block;
         border-color: #4fbdce;
       }
       input[type="email"]:valid ~ .validation span,
-      input[type="password"]:valid ~ .validation span {
+      input[type="password"]:valid ~ .validation span,
+      input[type="text"]:valid ~ .validation span {
         background: #4fbdce;
         position: absolute;
         border-radius: 6px;
       }
       input[type="email"]:valid ~ .validation span:first-child,
-      input[type="password"]:valid ~ .validation span:first-child {
+      input[type="password"]:valid ~ .validation span:first-child,
+      input[type="text"]:valid ~ .validation span:first-child {
         top: 30px;
         left: 14px;
         width: 20px;
@@ -118,7 +124,8 @@
                 transform: rotate(-45deg);
       }
       input[type="email"]:valid ~ .validation span:last-child,
-      input[type="password"]:valid ~ .validation span:last-child {
+      input[type="password"]:valid ~ .validation span:last-child,
+      input[type="text"]:valid ~ .validation span:last-child {
         top: 35px;
         left: 8px;
         width: 11px;
@@ -175,8 +182,12 @@
   <h2>Login</h2>
   <form action="/login/" id="login-form" method="POST">
     {% csrf_token %}
+    
     <p>
-      
+      <input type="text" id="username" name="username" placeholder="Enter your username" required><i class="validation"><span></span><span></span></i>
+      </p>
+    
+    <p>
     <input type="email" id="email" name="email" placeholder="Enter your email address" required><i class="validation"><span></span><span></span></i>
     </p>
     <p>
