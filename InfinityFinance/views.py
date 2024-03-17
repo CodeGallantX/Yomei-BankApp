@@ -213,11 +213,6 @@ def register(request):
     return render(request, 'InfinityFinance/register.html')
 
 
-
-from django.contrib import messages
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-
 def signin(request):
     if request.method == 'POST':
         email = request.POST.get('email')

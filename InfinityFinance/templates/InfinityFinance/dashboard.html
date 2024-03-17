@@ -268,7 +268,11 @@ nav.close ~ .dashboard .top{
     outline: none;
 }
 
-.top .search-box input:focus {
+.search-box input:focus {
+    border-color: #a09d9d;
+}
+
+body.dark .top .search-box input:focus {
     border-color: #3e94a1;
 }
 
@@ -285,6 +289,30 @@ nav.close ~ .dashboard .top{
 .top .search-box input:focus i{
     color: #3e94a1;
 }
+
+#user_profile {
+    font-size: 1.6rem;
+    padding: 8px 15px; 
+    background: rgb(245, 239, 221); 
+    border-radius: 50%;
+    transition: var(--tran-03);
+    cursor: pointer;
+}
+
+#user_profile:hover {
+    background: rgb(235, 228, 208); 
+}
+
+body.dark #user_profile {
+    color: var(--text-color);
+    background: #30667cb9; 
+    transition: var(--tran-03);
+}
+body.dark #user_profile:hover {
+    color: var(--text-color);
+    background: #30667c; 
+}
+
 .top img{
     width: 40px;
     border-radius: 50%;
@@ -301,13 +329,16 @@ nav.close ~ .dashboard .top{
     position: relative;
     height: 35px;
     width: 35px;
-    background-color: #237581;
+    background-color: #16a5e7;
     border-radius: 6px;
     color: var(--title-icon-color);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 24px;
+}
+body.dark .dash-content .title i{
+    background-color: #3c829e;
 }
 .dash-content .title .text{
     font-size: 24px;
@@ -320,6 +351,7 @@ nav.close ~ .dashboard .top{
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    gap: 20px;
 }
 .dash-content .boxes .box{
     display: flex;
@@ -353,11 +385,48 @@ nav.close ~ .dashboard .top{
 .boxes .box.box3{
     background-color: var(--box3-color);
 }
-
-.boxes .box:hover {
-    background-color: #03444e;
+.boxes .box.box4{
+    background-color: rgb(243, 162, 203);
+}
+.boxes .box.box5{
+    background-color: rgb(116, 226, 116);
+}
+.boxes .box.box6{
+    background-color: rgb(31, 131, 224);
+}
+.boxes .box.box7{
+    background-color: rgb(97, 243, 236);
 }
 
+.boxes .box:hover {
+    background-color: rgb(31, 131, 224);
+}
+.boxes .box2:hover {
+    background-color: rgb(243, 211, 97);
+}
+.boxes .box3:hover {
+    background-color: #ad88cf;
+}
+.boxes .box.box4:hover{
+    background-color: rgb(192, 101, 154);
+}
+.boxes .box.box5:hover{
+    background-color: rgb(100, 190, 100);
+}
+.boxes .box.box6:hover{
+    background-color: rgb(22, 109, 190);
+}
+.boxes .box.box7:hover{
+    background-color: rgb(64, 185, 179);
+}
+
+body.dark .boxes .box{
+    background-color: #377791;
+}
+
+body.dark .boxes .box:hover {
+    background-color: #30677c;
+}
 
 .dash-content .activity .activity-data{
     display: flex;
@@ -481,10 +550,14 @@ nav.close ~ .dashboard .top{
         width: 100%;
     }
 }
+
+
     </style>
      
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
 
     <title>Admin Dashboard Panel</title> 
 </head>
@@ -492,7 +565,7 @@ nav.close ~ .dashboard .top{
     <nav>
         <div class="logo-name">
             <div class="logo-image">
-                <img src="" alt="">
+                <img draggable="false" src="https://ik.imagekit.io/mshcgnjju/image.png?updatedAt=1710462047544" alt="">
             </div>
             <span class="logo_name">InfinityFinance</span>
         </div>
@@ -510,7 +583,15 @@ nav.close ~ .dashboard .top{
                     <i class="uil uil-receipt-alt"></i>
                     <span class="link-name">Transactions</span>
                 </a></li>
-                <!-- Add more menu items as needed -->
+                <li><a href="#" onclick="showSupport()">
+                    <i class="uil uil-headphones"></i>
+                    <span class="link-name">Customer Support</span>
+                </a></li>
+                <li><a href="#" onclick="showSettings()">
+                    <i class="uil uil-cog"></i>
+                    <span class="link-name">Settings</span>
+                </a></li>
+
             </ul>
             <ul class="logout-mode">
                 <li><a href="/logout/">
@@ -537,7 +618,7 @@ nav.close ~ .dashboard .top{
                 <i class="uil uil-search"></i>
                 <input type="text" placeholder="Search here...">
             </div>
-            <img src="images/profile.jpg" alt="">
+            <i  id="user_profile" class="uil uil-user"></i>
         </div>
         <div class="dash-content">
             <div class="overview">
@@ -575,14 +656,14 @@ nav.close ~ .dashboard .top{
         </div>
     </section>
 
-    <div id="accounts" class="dashboard">
+    <div id="accounts" class="dashboard" style="display: none;">
         <div class="top">
             <i class="uil uil-bars sidebar-toggle"></i>
             <div class="search-box">
                 <i class="uil uil-search"></i>
                 <input type="text" placeholder="Search here...">
             </div>
-            <img src="images/profile.jpg" alt="">
+            <img src="https://ik.imagekit.io/mshcgnjju/team9.png?updatedAt=1710713969991" alt="">
         </div>
         <div class="dash-content">
             <div class="title">
@@ -593,18 +674,80 @@ nav.close ~ .dashboard .top{
                 <!-- Add your account boxes here -->
                 <div class="box box1">
                     <i class="uil uil-user"></i>
-                    <span class="text">User Account</span>
+                    <span class="text">User</span>
                 </div>
                 <div class="box box2">
-                    <i class="uil uil-business-center"></i>
-                    <span class="text">Business Account</span>
+                    <i class="uil uil-briefcase"></i>
+                    <span class="text">Business</span>
                 </div>
+                <div class="box box3">
+                    <i class="uil uil-money-insert"></i>
+                    <span class="text">Savings</span>
+                </div>
+                <div class="box box4">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span class="text">Current</span>
+                </div>
+
                 <!-- Add more account boxes as needed -->
             </div>
         </div>
     </div>
+    
+    <!-- transactions.html -->
+<div id="transactions" class="dashboard">
+    <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i>
+        <div class="search-box">
+            <i class="uil uil-search"></i>
+            <input type="text" placeholder="Search here...">
+        </div>
+        <img src="images/profile.jpg" alt="">
+    </div>
+    <div class="dash-content">
+        <div class="title">
+            <i class="uil uil-receipt-alt"></i>
+            <span class="text">Transactions</span>
+        </div>
+        <div class="boxes">
+            <!-- Add your transaction boxes here -->
+            <div class="box box1">
+                <i class="uil uil-money-bill"></i>
+                <span class="text">Deposit Money</span>
+            </div>
+            <div class="box box2" id="withdrawBox">
+                <i class="uil uil-money-withdraw"></i>
+                <span class="text">Withdraw Money</span>
+            </div>
+            <div class="box box3">
+                <i class="uil uil-exchange-alt"></i>
+                <span class="text">Transfer Funds</span>
+            </div>
+            <div class="box box4">
+                <!-- Add more transaction boxes as needed -->
+            </div>
+        </div>
+    </div>
+</div>
 
-    <div id="transactions" class="dashboard" style="display: none;">
+
+
+
+<!--WITHDRAW-->
+
+<!-- withdraw.html -->
+<div id="withdrawSection" style="display: none;">
+    <h2>Withdraw Money</h2>
+    <form id="withdrawForm">
+        <input type="number" name="acc_no" placeholder="Account Number"><br>
+        <input type="number" name="amount" placeholder="Amount to Withdraw"><br>
+        <button type="submit">Withdraw</button>
+        <button type="button" id="cancelWithdraw">Cancel</button> <!-- Added cancel button -->
+    </form>
+    <div id="withdrawMessage"></div>
+</div>
+    
+    <div id="support" class="dashboard" style="display: none;">
         <div class="top">
             <i class="uil uil-bars sidebar-toggle"></i>
             <div class="search-box">
@@ -615,23 +758,62 @@ nav.close ~ .dashboard .top{
         </div>
         <div class="dash-content">
             <div class="title">
-                <i class="uil uil-receipt-alt"></i>
-                <span class="text">Transactions</span>
+                <i class="uil uil-headphones"></i>
+                <span class="text">Customer Support</span>
             </div>
             <div class="boxes">
-                <!-- Add your transaction boxes here -->
+                <!-- Add your customer support content here -->
                 <div class="box box1">
-                    <i class="uil uil-money-bill"></i>
-                    <span class="text">Deposit Money</span>
+                    <i class="uil uil-chat"></i>
+                    <span class="text">Live Chat</span>
                 </div>
                 <div class="box box2">
-                    <i class="uil uil-money-withdraw"></i>
-                    <span class="text">Withdraw Money</span>
+                    <i class="uil uil-envelope"></i>
+                    <span class="text">Email Support</span>
                 </div>
-                <!-- Add more transaction boxes as needed -->
+                <div class="box box3">
+                    <i class="uil uil-phone"></i>
+                    <span class="text">Phone Support</span>
+                </div>
+                <!-- Add more customer support options as needed -->
             </div>
         </div>
     </div>
+    
+    <div id="settings" class="dashboard" style="display: none;">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <input type="text" placeholder="Search here...">
+            </div>
+            <img src="images/profile.jpg" alt="">
+        </div>
+        <div class="dash-content">
+            <div class="title">
+                <i class="uil uil-cog"></i>
+                <span class="text">Settings</span>
+            </div>
+            <div class="boxes">
+                <!-- Add your settings options here -->
+                <div class="box box1">
+                    <i class="uil uil-lock-alt"></i>
+                    <span class="text">Change Password</span>
+                </div>
+                <div class="box box2">
+                    <i class="uil uil-language"></i>
+                    <span class="text">Language Preferences</span>
+                </div>
+                <div class="box box3">
+                    <i class="uil uil-lock-alt"></i>
+                    <span class="text">Privacy Settings</span>
+                </div>
+                <!-- Add more settings options as needed -->
+            </div>
+        </div>
+    </div>
+    
+    
 
     <script>
         const body = document.querySelector("body");
@@ -685,6 +867,40 @@ nav.close ~ .dashboard .top{
             document.getElementById('accounts').style.display = 'none';
             document.getElementById('transactions').style.display = 'block';
         }
+
+        // Function to show the customer support section
+function showSupport() {
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('accounts').style.display = 'none';
+    document.getElementById('transactions').style.display = 'none';
+    document.getElementById('support').style.display = 'block';
+    document.getElementById('settings').style.display = 'none';
+}
+
+// Function to show the settings section
+function showSettings() {
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('accounts').style.display = 'none';
+    document.getElementById('transactions').style.display = 'none';
+    document.getElementById('support').style.display = 'none';
+    document.getElementById('settings').style.display = 'block';
+}
+
+
+//Transactions
+ // Show withdraw section when "Withdraw Money" box is clicked
+ document.getElementById('withdrawBox').addEventListener('click', function() {
+        document.getElementById('transactions').style.display = 'none'; // Hide transactions section
+        document.getElementById('withdrawSection').style.display = 'block'; // Show withdraw section
+    });
+
+    // Cancel withdraw operation and go back to transactions section
+    document.getElementById('cancelWithdraw').addEventListener('click', function() {
+        document.getElementById('transactions').style.display = 'block'; // Show transactions section
+        document.getElementById('withdrawSection').style.display = 'none'; // Hide withdraw section
+    });
+</script>
+
     </script>
 </body>
 </html>
