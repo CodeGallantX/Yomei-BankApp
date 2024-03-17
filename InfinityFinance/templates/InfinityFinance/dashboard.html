@@ -494,59 +494,34 @@ nav.close ~ .dashboard .top{
             <div class="logo-image">
                 <img src="" alt="">
             </div>
-
             <span class="logo_name">InfinityFinance</span>
         </div>
-
         <div class="menu-items">
             <ul class="nav-links">
-                <li><a href="#">
+                <li><a href="#" onclick="showDashboard()">
                     <i class="uil uil-estate"></i>
                     <span class="link-name">Dashboard</span>
                 </a></li>
-                <li><a href="#">
+                <li><a href="#" onclick="showAccounts()">
                     <i class="uil uil-wallet"></i>
                     <span class="link-name">Accounts</span>
                 </a></li>
-                <li><a href="#transactions">
+                <li><a href="#" onclick="showTransactions()">
                     <i class="uil uil-receipt-alt"></i>
                     <span class="link-name">Transactions</span>
                 </a></li>
-                <li><a href="#">
-                    <i class="uil uil-money-bill"></i>
-                    <span class="link-name">Loans</span>
-                </a></li>
-                <li><a href="#">
-                    <i class="uil uil-credit-card"></i>
-                    <span class="link-name">Payments</span>
-                </a></li>
-                <li><a href="#">
-                    <i class="uil uil-exchange"></i>
-                    <span class="link-name">Transfer</span>
-                </a></li>
-                <li><a href="#">
-                    <i class="uil uil-headphones"></i>
-                    <span class="link-name">Contact Support</span>
-                </a></li>                
-                <li><a href="#">
-                    <i class="uil uil-cog"></i>
-                    <span class="link-name">Settings</span>
-                </a></li>
-                
+                <!-- Add more menu items as needed -->
             </ul>
-            
             <ul class="logout-mode">
                 <li><a href="/logout/">
                     <i class="uil uil-signout"></i>
                     <span class="link-name">Logout</span>
                 </a></li>
-
                 <li class="mode">
                     <a href="#">
                         <i class="uil uil-moon"></i>
                         <span class="link-name">Dark Mode</span>
                     </a>
-
                     <div class="mode-toggle">
                         <span class="switch"></span>
                     </div>
@@ -555,25 +530,21 @@ nav.close ~ .dashboard .top{
         </div>
     </nav>
 
-    <section class="dashboard">
+    <section id="dashboard" class="dashboard">
         <div class="top">
             <i class="uil uil-bars sidebar-toggle"></i>
-
             <div class="search-box">
                 <i class="uil uil-search"></i>
                 <input type="text" placeholder="Search here...">
             </div>
-            
             <img src="images/profile.jpg" alt="">
         </div>
-
         <div class="dash-content">
             <div class="overview">
                 <div class="title">
                     <i class="uil uil-tachometer-fast-alt"></i>
                     <span class="text">Dashboard</span>
                 </div>
-
                 <div class="boxes">
                     <div class="box box1">
                         <i class="uil uil-users-alt"></i>
@@ -592,13 +563,11 @@ nav.close ~ .dashboard .top{
                     </div>
                 </div>
             </div>
-
             <div class="activity">
                 <div class="title">
                     <i class="uil uil-clock-three"></i>
                     <span class="text">Recent Transactions</span>
                 </div>
-
                 <div class="activity-data">
                     <!-- Add your recent transaction data here -->
                 </div>
@@ -606,33 +575,51 @@ nav.close ~ .dashboard .top{
         </div>
     </section>
 
-
-<!-- Accounts -->
-<div id="accounts" class="dashboard" style="display: none;">
-    <!-- Your accounts content here -->
-</div>
-
-<!-- Transactions -->
-<div id="transactions" class="dashboard" style="display: none;">
-    <!-- Your transactions content here -->
+    <div id="accounts" class="dashboard">
         <div class="top">
             <i class="uil uil-bars sidebar-toggle"></i>
-    
             <div class="search-box">
                 <i class="uil uil-search"></i>
                 <input type="text" placeholder="Search here...">
             </div>
-            
             <img src="images/profile.jpg" alt="">
         </div>
-    
+        <div class="dash-content">
+            <div class="title">
+                <i class="uil uil-wallet"></i>
+                <span class="text">Accounts</span>
+            </div>
+            <div class="boxes">
+                <!-- Add your account boxes here -->
+                <div class="box box1">
+                    <i class="uil uil-user"></i>
+                    <span class="text">User Account</span>
+                </div>
+                <div class="box box2">
+                    <i class="uil uil-business-center"></i>
+                    <span class="text">Business Account</span>
+                </div>
+                <!-- Add more account boxes as needed -->
+            </div>
+        </div>
+    </div>
+
+    <div id="transactions" class="dashboard" style="display: none;">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <input type="text" placeholder="Search here...">
+            </div>
+            <img src="images/profile.jpg" alt="">
+        </div>
         <div class="dash-content">
             <div class="title">
                 <i class="uil uil-receipt-alt"></i>
                 <span class="text">Transactions</span>
             </div>
-    
             <div class="boxes">
+                <!-- Add your transaction boxes here -->
                 <div class="box box1">
                     <i class="uil uil-money-bill"></i>
                     <span class="text">Deposit Money</span>
@@ -641,120 +628,63 @@ nav.close ~ .dashboard .top{
                     <i class="uil uil-money-withdraw"></i>
                     <span class="text">Withdraw Money</span>
                 </div>
-                <div class="box box3">
-                    <i class="uil uil-exchange"></i>
-                    <span class="text">Transfer Funds</span>
-                </div>
-                <div class="box">
-                    <i class="uil uil-credit-card"></i>
-                    <span class="text">Pay Bills</span>
-                </div>
-                <div class="box">
-                    <i class="uil uil-request-money"></i>
-                    <span class="text">Request Payment</span>
-                </div>
-                <div class="box">
-                    <i class="uil uil-recurrence"></i>
-                    <span class="text">Recurring Payments</span>
-                </div>
-                <div class="box">
-                    <i class="uil uil-stopwatch"></i>
-                    <span class="text">Cancel Pending Transactions</span>
-                </div>
-                <div class="box">
-                    <i class="uil uil-file-alt"></i>
-                    <span class="text">View Pending Transactions</span>
-                </div>
-                <div class="box">
-                    <i class="uil uil-money-withdraw"></i>
-                    <span class="text">Apply for Loans</span>
-                </div>
-                <div class="box">
-                    <i class="uil uil-money-insert"></i>
-                    <span class="text">Repay Loans</span>
-                </div>
-                <div class="box">
-                    <i class="uil uil-file-alt"></i>
-                    <span class="text">View Loan History</span>
-                </div>
-                <div class="box">
-                    <i class="uil uil-landmark"></i>
-                    <span class="text">View Account Statements</span>
-                </div>
-                <div class="box">
-                    <i class="uil uil-user-plus"></i>
-                    <span class="text">Manage Beneficiaries</span>
-                </div>
-                <div class="box">
-                    <i class="uil uil-sync-exchange"></i>
-                    <span class="text">View Exchange Rates</span>
-                </div>
+                <!-- Add more transaction boxes as needed -->
             </div>
         </div>
     </div>
-<!--TRANSACTIONS-->    
 
     <script>
-        const body = document.querySelector("body"),
-      modeToggle = body.querySelector(".mode-toggle");
-      sidebar = body.querySelector("nav");
-      sidebarToggle = body.querySelector(".sidebar-toggle");
+        const body = document.querySelector("body");
+        let modeToggle = body.querySelector(".mode-toggle");
+        let sidebar = body.querySelector("nav");
+        let sidebarToggle = body.querySelector(".sidebar-toggle");
 
-let getMode = localStorage.getItem("mode");
-if(getMode && getMode ==="dark"){
-    body.classList.toggle("dark");
-}
+        let getMode = localStorage.getItem("mode");
+        if (getMode && getMode === "dark") {
+            body.classList.toggle("dark");
+        }
 
-let getStatus = localStorage.getItem("status");
-if(getStatus && getStatus ==="close"){
-    sidebar.classList.toggle("close");
-}
+        let getStatus = localStorage.getItem("status");
+        if (getStatus && getStatus === "close") {
+            sidebar.classList.toggle("close");
+        }
 
-modeToggle.addEventListener("click", () =>{
-    body.classList.toggle("dark");
-    if(body.classList.contains("dark")){
-        localStorage.setItem("mode", "dark");
-    }else{
-        localStorage.setItem("mode", "light");
-    }
-});
+        modeToggle.addEventListener("click", () => {
+            body.classList.toggle("dark");
+            if (body.classList.contains("dark")) {
+                localStorage.setItem("mode", "dark");
+            } else {
+                localStorage.setItem("mode", "light");
+            }
+        });
 
-sidebarToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("close");
-    if(sidebar.classList.contains("close")){
-        localStorage.setItem("status", "close");
-    }else{
-        localStorage.setItem("status", "open");
-    }
-})
+        sidebarToggle.addEventListener("click", () => {
+            sidebar.classList.toggle("close");
+            if (sidebar.classList.contains("close")) {
+                localStorage.setItem("status", "close");
+            } else {
+                localStorage.setItem("status", "open");
+            }
+        });
 
+        // NAV Menu
+        function showDashboard() {
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('accounts').style.display = 'none';
+            document.getElementById('transactions').style.display = 'none';
+        }
 
+        function showAccounts() {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('accounts').style.display = 'block';
+            document.getElementById('transactions').style.display = 'none';
+        }
 
-// NAV Menu
-function showDashboard() {
-    document.getElementById('dashboard').style.display = 'block';
-    document.getElementById('accounts').style.display = 'none';
-    document.getElementById('transactions').style.display = 'none';
-}
-
-function showAccounts() {
-    document.getElementById('dashboard').style.display = 'none';
-    document.getElementById('accounts').style.display = 'block';
-    document.getElementById('transactions').style.display = 'none';
-}
-
-function showTransactions() {
-    document.getElementById('dashboard').style.display = 'none';
-    document.getElementById('accounts').style.display = 'none';
-    document.getElementById('transactions').style.display = 'block';
-}
-
-
-
-
-
-
-
+        function showTransactions() {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('accounts').style.display = 'none';
+            document.getElementById('transactions').style.display = 'block';
+        }
     </script>
 </body>
 </html>
