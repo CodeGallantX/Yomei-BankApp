@@ -130,7 +130,7 @@ def login_view(request):
     return render(request, 'login.html')'''
 
 
-@login_required
+
 def dashboard(request):
     user = request.user
    # wallet = Wallet.objects.get(user=user)
@@ -163,6 +163,12 @@ def contact(request):
 
 def thank_you(request):
     return render(request, 'InfinityFinance/thank_you.html')
+
+def blog(request):
+    return render(request, "InfinityFinance/blog.html")
+
+def pricing(request):
+    return render(request, "InfinityFinance/pricing.html")
 
 '''def send_email(request):
     if request.method == 'POST':

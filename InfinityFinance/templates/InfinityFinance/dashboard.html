@@ -40,15 +40,15 @@ body{
     background-color: var(--primary-color);
 }
 body.dark{
-    --primary-color: #3A3B3C;
-    --panel-color: #242526;
+    --primary-color: #444;
+    --panel-color: #00040f;
     --text-color: #CCC;
     --black-light-color: #CCC;
     --border-color: #4D4C4C;
     --toggle-color: #FFF;
-    --box1-color: #3A3B3C;
-    --box2-color: #3A3B3C;
-    --box3-color: #3A3B3C;
+    --box1-color: #4fadce3a;
+    --box2-color: #4fadce3a;
+    --box3-color: #4fadce3a;
     --title-icon-color: #CCC;
 }
 /* === Custom Scroll Bar CSS === */
@@ -140,7 +140,7 @@ nav .menu-items{
     background-color: var(--primary-color);
 }
 body.dark li a:hover:before{
-    background-color: var(--text-color);
+    background-color: #4fbdce;
 }
 .menu-items li a i{
     font-size: 24px;
@@ -167,7 +167,7 @@ nav.close li a .link-name{
 }
 body.dark .nav-links li a:hover i,
 body.dark .nav-links li a:hover .link-name{
-    color: var(--text-color);
+    color: #4fbdce;
 }
 .menu-items .logout-mode{
     padding-top: 10px;
@@ -267,6 +267,11 @@ nav.close ~ .dashboard .top{
     font-weight: 400;
     outline: none;
 }
+
+.top .search-box input:focus {
+    border-color: #3e94a1;
+}
+
 .top .search-box i{
     position: absolute;
     left: 15px;
@@ -275,6 +280,10 @@ nav.close ~ .dashboard .top{
     top: 50%;
     transform: translateY(-50%);
     color: var(--black-light-color);
+}
+
+.top .search-box input:focus i{
+    color: #3e94a1;
 }
 .top img{
     width: 40px;
@@ -292,7 +301,7 @@ nav.close ~ .dashboard .top{
     position: relative;
     height: 35px;
     width: 35px;
-    background-color: var(--primary-color);
+    background-color: #237581;
     border-radius: 6px;
     color: var(--title-icon-color);
     display: flex;
@@ -321,6 +330,7 @@ nav.close ~ .dashboard .top{
     padding: 15px 20px;
     background-color: var(--box1-color);
     transition: var(--tran-05);
+    cursor: pointer;
 }
 .boxes .box i{
     font-size: 35px;
@@ -343,6 +353,12 @@ nav.close ~ .dashboard .top{
 .boxes .box.box3{
     background-color: var(--box3-color);
 }
+
+.boxes .box:hover {
+    background-color: #03444e;
+}
+
+
 .dash-content .activity .activity-data{
     display: flex;
     justify-content: space-between;
