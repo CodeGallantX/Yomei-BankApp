@@ -551,6 +551,68 @@ body.dark .boxes .box:hover {
     }
 }
 
+#withdrawSection {
+    display: none;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#withdrawSection h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#withdrawForm {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+button[type="button"] {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+button[type="button"]:hover {
+    background-color: #5a6268;
+}
 
     </style>
      
@@ -734,13 +796,18 @@ body.dark .boxes .box:hover {
 
 
 <!--WITHDRAW-->
-
 <!-- withdraw.html -->
 <div id="withdrawSection" style="display: none;">
     <h2>Withdraw Money</h2>
     <form id="withdrawForm">
-        <input type="number" name="acc_no" placeholder="Account Number"><br>
-        <input type="number" name="amount" placeholder="Amount to Withdraw"><br>
+        <div class="form-group">
+            <label for="acc_no">Account Number</label>
+            <input type="text" id="acc_no" name="acc_no" placeholder="Enter your account number">
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount to Withdraw</label>
+            <input type="number" id="amount" name="amount" placeholder="Enter the amount">
+        </div>
         <button type="submit">Withdraw</button>
         <button type="button" id="cancelWithdraw">Cancel</button> <!-- Added cancel button -->
     </form>
@@ -889,7 +956,7 @@ function showSettings() {
 
 //Transactions
  // Show withdraw section when "Withdraw Money" box is clicked
- document.getElementById('withdrawBox').addEventListener('click', function() {
+    document.getElementById('withdrawBox').addEventListener('click', function() {
         document.getElementById('transactions').style.display = 'none'; // Hide transactions section
         document.getElementById('withdrawSection').style.display = 'block'; // Show withdraw section
     });
