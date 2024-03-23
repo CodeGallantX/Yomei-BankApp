@@ -3,11 +3,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.models import User
-from .forms import CustomUserCreationForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 # from .models import UserProfile, Bill, AirtimePurchase
+from .models import Transactions, Wallet
 from .forms import WithdrawForm, TransferForm, DepositForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -26,16 +26,18 @@ def home(request):
 def error_404(request, exception):
     return render(request, 'InfinityFinance/404.html', status=404)
     
-'''
-def transfer(request):
+def transfer_funds(request):
     if request.method == 'POST':
         form = TransferForm(request.POST)
         if form.is_valid():
-            recipient = form.cleaned_data['recipient']
+            # Process the form data and perform the transfer operation
+            user_account = form.cleaned_data['user_account']
+            recipient_account = form.cleaned_data['recipient_account']
             amount = form.cleaned_data['amount']
-            sender = request.user
-
-            # Check if sender has enough balance
+            recipient_bank_name = form.cleaned_data['recipient_bank_name']
+            
+            # Perform the transfer operation here
+             # Check if sender has enough balance
             sender_wallet = Wallet.objects.get(user=sender)
             if sender_wallet.balance >= amount:
                 # Deduct amount from sender's wallet
@@ -48,18 +50,22 @@ def transfer(request):
                 recipient_wallet.save()
 
                 # Record the transaction
-                Transaction.objects.create(sender=sender, recipient=recipient, amount=amount)
+                Transactions.objects.create(sender=sender, recipient=recipient, amount=amount)
 
                 messages.success(request, 'Transfer successful!')
                 return redirect('transfer')
             else:
                 messages.error(request, 'Insufficient balance.')
+            
+            # Redirect to a success page or return a success message
+            return redirect('transactions')  # Redirect to transactions page after successful transfer
     else:
         form = TransferForm()
+    
+    return render(request, 'dashboard.html', {'form': form})
 
-    return render(request, 'transfer.html', {'form': form})
 
-
+'''
 def deposit(request):
     if request.method == 'POST':
         form = DepositForm(request.POST)

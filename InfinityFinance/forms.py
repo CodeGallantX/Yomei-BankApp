@@ -71,11 +71,12 @@ class TransferForm(forms.Form):
 
 class DepositForm(forms.Form):
     amount = forms.DecimalField(max_digits=10, decimal_places=2)
+    account_type = forms.ChoiceField(label="Choose Account:", choices=["Savings Account", "Current Account", "Business Account"], required=True)
 
 class WithdrawForm(forms.Form):
     amount = forms.DecimalField(max_digits=10, decimal_places=2)
 
-class CustomUserCreationForm(UserCreationForm):
+'''class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(max_length=254, help_text='Required. Enter a valid email address.')
     phone_number = forms.CharField(max_length=15, help_text='Required. Enter your phone number.')
     first_name = forms.CharField(max_length=30, help_text='Required. Enter your first name.')
@@ -92,5 +93,5 @@ class CustomUserCreationForm(UserCreationForm):
         # Add custom validation logic here, such as checking for a specific format or length
         if not phone_number.isdigit():
             raise forms.ValidationError('Phone number must contain only digits.')
-        return phone_number
+        return phone_number'''
 
