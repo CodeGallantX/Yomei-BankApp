@@ -118,11 +118,13 @@ class Transactions(models.Model):
     class Meta:
         db_table = 'transactions'
         
-class Money_Transfers(models.Model):             
+def Money_Transfers(self, Trans_ID, From_accno, To_accno, Amount):             
     Trans_ID = models.AutoField(primary_key=True)
     From_accno = models.ForeignKey( Account, on_delete=models.CASCADE, related_name = 'From_accno')
     To_accno = models.ForeignKey( Account, on_delete=models.CASCADE, related_name = 'To_accno')
     Amount = models.FloatField()
+
+    Trans_ID = self.
     class Meta:
         db_table = 'transfers'
     
