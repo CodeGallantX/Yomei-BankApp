@@ -25,7 +25,7 @@ def home(request):
 
 def error_404(request, exception):
     return render(request, 'InfinityFinance/404.html', status=404)
-    
+
 def transfer_funds(request):
     if request.method == 'POST':
         form = TransferForm(request.POST)
@@ -36,33 +36,32 @@ def transfer_funds(request):
             amount = form.cleaned_data['amount']
             recipient_bank_name = form.cleaned_data['recipient_bank_name']
             
-            # Perform the transfer operation here
-             # Check if sender has enough balance
-            sender_wallet = Wallet.objects.get(user=sender)
+            # Assuming you have the sender and recipient objects based on their account numbers
+            sender_wallet = Wallet.objects.get(account_number=user_account)
+            recipient_wallet = Wallet.objects.get(account_number=recipient_account)
+
+            # Check if sender has enough balance
             if sender_wallet.balance >= amount:
                 # Deduct amount from sender's wallet
                 sender_wallet.balance -= amount
                 sender_wallet.save()
 
                 # Add amount to recipient's wallet
-                recipient_wallet = Wallet.objects.get(user=recipient)
                 recipient_wallet.balance += amount
                 recipient_wallet.save()
 
                 # Record the transaction
-                Transactions.objects.create(sender=sender, recipient=recipient, amount=amount)
+                Transactions.objects.create(sender=sender_wallet.user, recipient=recipient_wallet.user, amount=amount)
 
                 messages.success(request, 'Transfer successful!')
-                return redirect('transfer')
+                return redirect('transactions')  # Redirect to transactions page after successful transfer
             else:
                 messages.error(request, 'Insufficient balance.')
-            
-            # Redirect to a success page or return a success message
-            return redirect('transactions')  # Redirect to transactions page after successful transfer
     else:
         form = TransferForm()
     
-    return render(request, 'dashboard.html', {'form': form})
+    return render(request, 'transactions.html', {'form': form})
+
 
 
 '''
@@ -144,8 +143,14 @@ def dashboard(request):
     #transactions = Transaction.objects.filter(wallet=wallet)
     #bills = Bill.objects.filter(user=user)
     #airtime_purchases = AirtimePurchase.objects.filter(user=user)
+
+    try:
+        wallet = Wallet.objects.get(user=user)
+    except Wallet.DoesNotExist:
+        # Create a new wallet if it doesn't exist for the user
+        wallet = Wallet.objects.create(user=user, account_number="1234567890")  # You may generate a unique account number here
     context = {
-        #'wallet': wallet,
+        'wallet': wallet,
         #'transactions': transactions,
         #'bills': bills,
         #'airtime_purchases': airtime_purchases
@@ -475,5 +480,5 @@ def test_classes(request):
     cust_obj = Classes.Customer(login_obj)
     acc_obj = Classes.Account(1111)
     new_acc_obj = Classes.New_Account(111, cust_obj)
-    new_cust_obj = Classes.New_Customer(login_obj, 'anjali', 'addr1', '99880')
+    new_cust_obj = Classes.New_Customer(login_obj, 'john', 'addr1', '100101')
 '''
