@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Customer, Account, Transactions, Money_Transfers, ECS_Data, Bills
 
-#Register models here
+# Register models here
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ('Cust_ID', 'Name', 'Phone_no', 'Email')
 admin.site.register(Customer, CustomerAdmin)
