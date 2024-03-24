@@ -268,7 +268,7 @@ def withdraw(request):
         #print('account dict:',accounts.keys())
         if acc_num in accounts:
             #acc_obj= accounts[acc_num]
-            acc_q=Account_Data.objects.get(Accno=acc_num)
+            acc_q=Account_Data.objects.get(Account_number=acc_num)
             balance=acc_q.Balance
             print("balance:",balance)
             if(balance>=amount):
@@ -296,7 +296,7 @@ def deposit(request):
         acc_num = int(request.POST.get('acc_no'))
         amount = int(request.POST.get('amount'))
         if acc_num in accounts:
-            acc_q = Account_Data.objects.get(Accno=acc_num)
+            acc_q = Account_Data.objects.get(Account_number=acc_num)
             balance = acc_q.Balance
             trans = Classes.Account(acc_q)
             trans.create_transaction(amount, "deposit")
@@ -317,9 +317,9 @@ def stat_gen(request):
     all_transactions = {}
     for acc in accounts:
         print("acc_no:",acc)
-        acc_q=Account_Data.objects.get(Accno=int(acc))
+        acc_q=Account_Data.objects.get(Account_number=int(acc))
         trans=Classes.Account(acc_q)
-        #trans_rec=Transactions.objects.filter(Accno_id=int(acc))
+        #trans_rec=Transactions.objects.filter(Account_number_id=int(acc))
         #print("trans_rec:",trans_rec)
         transaction=trans.get_transaction_log()
         trans_objs_list = list(transaction.values())
@@ -335,12 +335,12 @@ def get_transaction_action(request):
     all_transactions = {}
     if(button_action == 'withdraw'):
         for acc in accounts:
-            transaction=Transactions.objects.filter(Accno_id=int(acc),Type="withdraw")
+            transaction=Transactions.objects.filter(Account_number_id=int(acc),Type="withdraw")
             print("withdraw:",transaction)
             all_transactions[acc] = list(transaction)
     elif(button_action == 'deposit'):
         for acc in accounts:
-            transaction=Transactions.objects.filter(Accno_id=int(acc),Type="deposit")
+            transaction=Transactions.objects.filter(Account_number_id=int(acc),Type="deposit")
             all_transactions[acc] = list(transaction)
     elif(button_action == 'all'):
         return redirect('InfinityFinance:stat_gen')
@@ -372,11 +372,11 @@ def get_account_action(request):
     elif(account_action == 'close'):
         print(request.GET)
         print("account:", cur_customer.accounts)
-        close_accno = int(request.GET['close_accno'])
-        #if(close_accno not in accounts):
+        close_Account_number = int(request.GET['close_Account_number'])
+        #if(close_Account_number not in accounts):
         #    err_msg = "Invalid Account number!"
         #else:
-        cur_customer.close_account(close_accno)
+        cur_customer.close_account(close_Account_number)
     else:
         print("Got neither create nor close")
     #print("Account created successfully")
@@ -401,8 +401,8 @@ def store_new_ecs_data(request):
     #Make a class for ECS
     payer_name = request.GET['payer_name']
     upper_limit = request.GET['upper_limit']
-    accno = int(request.GET['accno'])
-    acc_obj = cur_customer.accounts[accno]
+    Account_number = int(request.GET['Account_number'])
+    acc_obj = cur_customer.accounts[Account_number]
     ecs_obj = Classes.New_ECS(payer_name, acc_obj, upper_limit)
     msg = "New ECS Created Successfully!"
     return render(request, 'InfinityFinance/set_up_ecs.html', {"msg":msg})

@@ -5,13 +5,13 @@ class CustomerAdmin(admin.ModelAdmin):
     list_display = ('Cust_ID', 'Name', 'Phone_no', 'Email')
 
 class AccountAdmin(admin.ModelAdmin):
-    list_display = ('Accno', 'Owner', 'Balance')
+    list_display = ('Account_number', 'Owner', 'Balance')
 
 class TransactionsAdmin(admin.ModelAdmin):
-    list_display = ('Trans_ID', 'Accno', 'Amount', 'Type')
+    list_display = ('Trans_ID', 'Account_number', 'Amount', 'Type')
 
 '''class MoneyTransfersAdmin(admin.ModelAdmin):
-    list_display = ('Trans_ID', 'From_accno', 'To_accno', 'Amount')
+    list_display = ('Trans_ID', 'From_Account_number', 'To_Account_number', 'Amount')
 '''
 class ECSDataAdmin(admin.ModelAdmin):
     list_display = ('ECS_ID', 'Payer_Name', 'Upper_Limit', 'Account')
