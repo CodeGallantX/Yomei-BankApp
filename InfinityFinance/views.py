@@ -148,7 +148,7 @@ def dashboard(request):
         wallet = Wallet.objects.get(user=user)
     except Wallet.DoesNotExist:
         # Create a new wallet if it doesn't exist for the user
-        wallet = Wallet.objects.create(user=user, account_number="1234567890")  # You may generate a unique account number here
+        wallet = Wallet.objects.create(user=user, account_number="")  # You may generate a unique account number here
     context = {
         'wallet': wallet,
         #'transactions': transactions,
@@ -227,21 +227,22 @@ def register(request):
 
 def signin(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        username = request.POST.get('username')
         password = request.POST.get('pass1')  # Assuming password field is named 'pass1'
 
         # Authenticate user
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(request, email=username, password=password)
 
         if user is not None:
+            # Display error message if authentication failed
+            messages.error(request, "Invalid username or password.")
+            return redirect('home')  # Assuming 'home' is the name of the URL pattern for the home page
+           
+        else:
             # Login user if authentication successful
             login(request, user)
-            email = user.email  # Accessing user's email address
-            return render(request, 'InfinityFinance/dashboard.html', {'email':email})
-        else:
-            # Display error message if authentication failed
-            messages.error(request, "Invalid email or password.")
-            return redirect('home')  # Assuming 'home' is the name of the URL pattern for the home page
+            user = user.username  # Accessing user's email address
+            return render(request, 'InfinityFinance/dashboard.html', {'username':username})
 
     # If request method is not POST, render the login page
     return render(request, 'InfinityFinance/login.html')
