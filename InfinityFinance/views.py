@@ -203,7 +203,6 @@ def pricing(request):
         return HttpResponseRedirect(reverse('contact'))  # Redirect if not a POST request'''
 
 
-
 def register(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']
