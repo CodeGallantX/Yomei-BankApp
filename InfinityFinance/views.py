@@ -148,7 +148,7 @@ def dashboard(request):
         wallet = Wallet.objects.get(user=user)
     except Wallet.DoesNotExist:
         # Create a new wallet if it doesn't exist for the user
-        wallet = Wallet.objects.create(user=user, account_number="")  # You may generate a unique account number here
+        wallet = Wallet.objects.create(user=user, account_number="3018725946")  # You may generate a unique account number here
     context = {
         'wallet': wallet,
         #'transactions': transactions,
