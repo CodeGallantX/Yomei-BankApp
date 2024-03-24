@@ -87,7 +87,7 @@ class Customer(models.Model):
         db_table = 'customer'
    
 class Account(models.Model):
-    Accno = models.IntegerField(primary_key=True)
+    Account_number = models.IntegerField(primary_key=True)
     Owner = models.ForeignKey( Customer, on_delete=models.CASCADE)
     Balance = models.FloatField()
     #Name = models.CharField(max_length=200)
@@ -106,14 +106,14 @@ class Wallet(models.Model):
 '''    
 class Deposits(models.Model): 
     Trans_ID = models.AutoField(primary_key=True)
-    Accno = models.ForeignKey(Account, on_delete=models.CASCADE)
+    Account_number = models.ForeignKey(Account, on_delete=models.CASCADE)
     Amount = models.FloatField()
     class Meta:
         db_table = 'deposits'
         
 class Withdraws(models.Model): 
     Trans_ID = models.AutoField(primary_key=True)
-    Accno = models.ForeignKey(Account, on_delete=models.CASCADE)
+    Account_number = models.ForeignKey(Account, on_delete=models.CASCADE)
     Amount = models.FloatField()
     class Meta:
         db_table = 'withdraws' 
@@ -121,7 +121,7 @@ class Withdraws(models.Model):
 
 class Transactions(models.Model): 
     Trans_ID = models.AutoField(primary_key=True)
-    Accno = models.ForeignKey( Account, on_delete=models.CASCADE)
+    Account_number = models.ForeignKey( Account, on_delete=models.CASCADE)
     Amount = models.FloatField()
     Type = models.CharField(max_length=30)
     #Type can be "withdraw" or "deposit"
