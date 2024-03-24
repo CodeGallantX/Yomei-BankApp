@@ -682,6 +682,10 @@ button[type="button"]:hover {
             </div>
             <i  id="user_profile" class="uil uil-user"></i>
         </div>
+        <div>
+            <h2 class="number">Welcome {{ register.username }}
+        </div>
+
         <div class="dash-content">
             <div class="overview">
                 <div class="title">
@@ -690,9 +694,8 @@ button[type="button"]:hover {
                 </div>
                 <div class="boxes">
                     <div class="box box1">
-                        <i class="uil uil-users-alt"></i>
+                        <i class="uil uil-wallet"></i>
                         <span class="text">Wallet</span>
-                        <span style="text-align: center; color: var(--text-color); margin: auto;">Account Number: {{ wallet.account_number }}</span>
                         <span class="number">${{ wallet.balance }}</span>
                     </div>
                     <div class="box box2">

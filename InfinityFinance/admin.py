@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer, Account, Transactions, ECS_Data, Bills
+from .models import Customer, Account, Transactions, ECS_Data, Bills, Wallet
 
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ('Cust_ID', 'Name', 'Phone_no', 'Email')
@@ -25,3 +25,4 @@ admin.site.register(Transactions)
 #admin.site.register(Money_Transfers)
 admin.site.register(ECS_Data)
 admin.site.register(Bills)
+admin.site.register(Wallet)
