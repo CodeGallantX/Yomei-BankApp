@@ -224,27 +224,27 @@ def register(request):
     return render(request, 'InfinityFinance/register.html')
 
 
+
 def signin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
-        password = request.POST.get('pass1')  # Assuming password field is named 'pass1'
+        password = request.POST.get('password')  # Correct field name to 'password'
 
         # Authenticate user
-        user = authenticate(request, email=username, password=password)
+        user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            # Display error message if authentication failed
-            messages.error(request, "Invalid username or password.")
-            return redirect('home')  # Assuming 'home' is the name of the URL pattern for the home page
-           
-        else:
             # Login user if authentication successful
             login(request, user)
-            user = user.username  # Accessing user's email address
-            return render(request, 'InfinityFinance/dashboard.html', {'username':username})
+            return redirect('dashboard')  # Redirect to the dashboard upon successful login
+        else:
+            # Display error message if authentication failed
+            messages.error(request, "Invalid username or password.")
+            return redirect('home')  # Redirect to the home page if authentication fails
 
     # If request method is not POST, render the login page
     return render(request, 'InfinityFinance/login.html')
+
 
 
 def signout(request):
@@ -360,8 +360,6 @@ def get_function_chosen(request):
         return redirect('InfinityFinance:deposit') #name of view given in urls.py
     elif(menu_chosen=='stat_gen'):
         return redirect('InfinityFinance:stat_gen') #name of view given in urls.py
-    elif(menu_chosen=='start_ecs'):
-        return redirect('InfinityFinance:show_ecs_options')
     
 def get_account_action(request):
     print("got:", request.GET)
@@ -382,48 +380,7 @@ def get_account_action(request):
     #print("Account created successfully")
     return redirect('InfinityFinance:account_management')
 
-def show_ecs_options(request):
-    return render(request, "InfinityFinance/ecs.html")
-    
-def redirect_ecs(request):
-    ecs_option = request.GET['ecs_option']
-    print("ecs_option", ecs_option)
-    if(ecs_option == "new_ecs"):
-        return redirect('InfinityFinance:start_ecs')
-    if(ecs_option == 'view_ecs'):
-        return redirect('InfinityFinance:show_due_bills')
-        
-def start_ecs(request):
-    msg=""
-    return render(request, 'InfinityFinance/set_up_ecs.html', {"msg":msg})
-    
-def store_new_ecs_data(request):
-    #Make a class for ECS
-    payer_name = request.GET['payer_name']
-    upper_limit = request.GET['upper_limit']
-    Account_number = int(request.GET['Account_number'])
-    acc_obj = cur_customer.accounts[Account_number]
-    ecs_obj = Classes.New_ECS(payer_name, acc_obj, upper_limit)
-    msg = "New ECS Created Successfully!"
-    return render(request, 'InfinityFinance/set_up_ecs.html', {"msg":msg})
-    
-def show_due_bills(request):
-    accounts = cur_customer.accounts
-    bills_list = []
-    for acc_obj in accounts.values():
-        ecs_list = ECS_Data.objects.filter(Account = acc_obj.account_details)
-        for ecs in ecs_list:
-            bills_for_cur_ecs = Bills.objects.filter(ECS_ID = ecs).filter(Completed = False)
-            for bill in bills_for_cur_ecs:
-                bill_details = [bill.id, ecs.Payer_Name, acc_obj.account_no, bill.Amount, ecs.Upper_Limit]
-                if(bill.Amount<=ecs.Upper_Limit):
-                    bill_details.append("yes")
-                else:
-                    bill_details.append("NO")
-                #bills_list.extend(list(bills_for_cur_ecs))
-                bills_list.append(bill_details)
-    print(bills_list)
-    return render(request, 'InfinityFinance/ecs_show_bills.html', {'bills_list':bills_list});
+
     
 def pay_bill(request):
     bill_id = request.GET['bill_id']

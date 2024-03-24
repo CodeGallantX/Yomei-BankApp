@@ -3,6 +3,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/png" href="https://ik.imagekit.io/mshcgnjju/image.png?updatedAt=1710462047544" />
   <title>Login</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
@@ -72,7 +73,6 @@
         text-indent: 10px;
       }
       
-      input[type="email"],
       input[type="password"],
       input[type="text"] {
         width: 100%;
@@ -89,31 +89,28 @@
         display: inline-block;
         background: none;
       }
-      input[type="email"]:focus,
       input[type="password"]:focus,
       input[type="text"]:focus {
         border-color: #3ca9e2;
       }
-      input[type="email"]:focus:invalid,
       input[type="password"]:focus:invalid,
       input[type="text"]:focus:invalid {
         color: #cc1e2b;
         border-color: #cc1e2b;
       }
-      input[type="email"]:valid ~ .validation,
       input[type="password"]:valid ~ .validation,
       input[type="text"]:valid ~ .validation {
         display: block;
         border-color: #4fbdce;
       }
-      input[type="email"]:valid ~ .validation span,
+      
       input[type="password"]:valid ~ .validation span,
       input[type="text"]:valid ~ .validation span {
         background: #4fbdce;
         position: absolute;
         border-radius: 6px;
       }
-      input[type="email"]:valid ~ .validation span:first-child,
+      
       input[type="password"]:valid ~ .validation span:first-child,
       input[type="text"]:valid ~ .validation span:first-child {
         top: 30px;
@@ -123,7 +120,7 @@
         -webkit-transform: rotate(-45deg);
                 transform: rotate(-45deg);
       }
-      input[type="email"]:valid ~ .validation span:last-child,
+      
       input[type="password"]:valid ~ .validation span:last-child,
       input[type="text"]:valid ~ .validation span:last-child {
         top: 35px;
@@ -184,22 +181,23 @@
     {% csrf_token %}
     
     <p>
-      <input type="text" id="username" name="username" placeholder="Enter your username" required><i class="validation"><span></span><span></span></i>
-      </p>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        <i class="validation"><span></span><span></span></i>
+    </p>
     
     <p>
-    <input type="email" id="email" name="email" placeholder="Enter your email address" required><i class="validation"><span></span><span></span></i>
+        <input type="password" id="password" name="password" placeholder="Enter your Password" required>
+        <i class="validation"><span></span><span></span></i>
     </p>
+    
     <p>
-    <input type="password" id="password" name="pass1" placeholder="Enter your Password" required><i class="validation"><span></span><span></span></i>
+        <input type="submit" id="login" value="Login">
     </p>
-    <p>
-    <input type="submit" id="login" value="Login">
-    </p>
-  </form>
-  <div id="create-account-wrap">
-    <p>Not a member? <a href="/register">Create Account</a><p>
-  </div><!--create-account-wrap-->
+</form>
+<div id="create-account-wrap">
+    <p>Not a member? <a href="/register">Create Account</a></p>
+</div><!--create-account-wrap-->
+
 </div><!--login-form-wrap-->
 <!-- partial -->
   

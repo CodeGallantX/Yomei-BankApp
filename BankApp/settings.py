@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'InfinityFinance',
+    'jazzmin',
     'django.contrib.auth',
     'django.contrib.admin',
     'django.contrib.contenttypes',

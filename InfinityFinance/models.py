@@ -139,17 +139,10 @@ def Money_Transfers(self, Trans_ID, From_accno, To_accno, Amount):
     
     
         
-class ECS_Data(models.Model):
-    ECS_ID = models.AutoField(primary_key=True)
-    Payer_Name = models.CharField(max_length=300)
-    Upper_Limit = models.FloatField()
-    Account = models.ForeignKey(Account, on_delete=models.CASCADE)
-    class Meta:
-        db_table = 'ecs'
+
     
 class Bills(models.Model):
     #id column created implicitly
-    ECS_ID = models.ForeignKey(ECS_Data, on_delete=models.CASCADE)
     Amount = models.FloatField()
     Completed = models.BooleanField()
     class Meta:
