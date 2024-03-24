@@ -45,7 +45,7 @@ urlpatterns = [
     # path('transactions/', include('transactions.urls')),
 
     path("redirect_from_dashboard/", infinity_views.get_function_chosen, name = "get_function_chosen"),
-    path("account_management/", infinity_views.account_management, name='account_management'),
+    #path("account_management/", infinity_views.account_management, name='account_management'),
     path("process_account_action/", infinity_views.get_account_action, name='get_account_action'),
     path("withdraw/", infinity_views.withdraw, name='withdraw'),
     path("deposit/", infinity_views.deposit, name='deposit'),

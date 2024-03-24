@@ -253,45 +253,6 @@ def signout(request):
     return redirect('home')
 
 
-
-#sys.path defines paths from which imports can be made
-
-import sys, os
-print(os.getcwd())
-sys.path.append(os.getcwd()+'/InfinityFinance/utils')
-
-from django.shortcuts import render, redirect
-from .models import Customer, Account,Transactions,ECS_Data,Bills
-import random
-from django.http import HttpResponse
-import Classes
-
-cur_customer = None #Stores customer obj
-
-# Create your views here.
-def randomGen():
-    # return a 6 digit random number
-    return int(random.uniform(100000, 999999))
-
-
-def display_menu(request):
-    global cur_customer
-    user_log_in = Classes.Login_Details(request.user.username, request.user.password)
-    cust_details = Customer_Data.objects.filter(Name=user_log_in.username)
-    if cust_details:
-        customer = Classes.Customer(user_log_in)
-    else:
-        customer = Classes.New_Customer(user_log_in, user_log_in.username, '9999999999', 'saa@gmail.com')
-    cur_customer = customer
-    return render(request, 'InfinityFinance/user_account.html', {'customer': customer})
-
-  
-def account_management(request):
-    accounts = cur_customer.accounts
-    user_accnos = list(accounts.keys())
-    return render(request, 'InfinityFinance/account_details.html', {'customer': cur_customer, 'accounts': accounts, 'can_close_accnos': user_accnos})
-
-
 def withdraw(request):
     if cur_customer is None:
         # Handle the case when cur_customer is None
