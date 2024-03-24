@@ -19,9 +19,9 @@ class ECSDataAdmin(admin.ModelAdmin):
 class BillsAdmin(admin.ModelAdmin):
     list_display = ('id', 'ECS_ID', 'Amount', 'Completed')
 
-admin.site.register(Customer, CustomerAdmin)
-admin.site.register(Account, AccountAdmin)
-admin.site.register(Transactions, TransactionsAdmin)
-admin.site.register(Money_Transfers, MoneyTransfersAdmin)
-admin.site.register(ECS_Data, ECSDataAdmin)
+admin.site.register(Customer)
+admin.site.register(Account)
+admin.site.register(Transactions)
+admin.site.register(Money_Transfers)
+admin.site.register(ECS_Data)
 admin.site.register(Bills, BillsAdmin)
